@@ -14,11 +14,15 @@ class Shop extends React.Component {
 
         return (
             <table className='ShopTable'>
-                <tr>
-                    <th className="ShopTableCaption" colSpan="5"><h2>{this.props.title}</h2></th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th className="ShopTableCaption" colSpan="5">
+                            <h2>{this.props.title}</h2>
+                        </th>
+                    </tr>
+                </thead>
 
-                {shopItems}
+                <tbody>{shopItems}</tbody>
             </table>
         );
 

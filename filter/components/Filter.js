@@ -2,45 +2,40 @@
 import './Filter.css';
 
 class Filter extends React.Component {
-
-    state = {
+    defState = {
         checked: false,
         term: ''
     }
 
-    searchItems = (items, term) => {
-        if (term.length === 0) return items
+    state = this.defState
 
-        return items.filter(item => {
-            return item.indexOf(term) > -1
-        })
-    }
+    searchItemsHandler = (e) => this.setState({term: e.target.value})
 
-    searchItemsHandler = (e) => {
-        this.setState({term: e.target.value})
-    }
+    sortItemsHandler = (e) => this.setState({checked: e.target.checked})
+
+    resetItemsHandler = () => this.setState(this.defState)
 
     sortItems = (items, checked) => {
-        if (!checked) return items
+        if (checked) {
+            const copy = [...items]
+            return copy.sort((a, b) => (a > b ? 1 : -1))
+        }
 
-        return items.sort()
+        return items
     }
 
-    sortItemsHandler = (e) => {
-        this.setState({checked: e.target.checked})
-    }
+    searchItems = (items, term) => {
+        if (term.length !== 0) {
+            return items.filter(item => (item.indexOf(term) > -1))
+        }
 
-    resetItemsHandler = () => {
-        this.setState({
-            checked: false,
-            term: ''
-        });
+        return items
     }
 
     render() {
-        const data = ['california', 'everything', 'aboveboard', 'washington', 'basketball', 'weathering', 'characters', 'literature', 'contraband', 'appreciate'];
-
+        const {data} = this.props
         const {checked, term} = this.state
+
         const filteredData = this.sortItems(this.searchItems(data, term), checked)
 
         return (
@@ -48,7 +43,7 @@ class Filter extends React.Component {
                 <div className="FilterWrap">
                     <div className="FilterAction">
                         <input type="checkbox" checked={checked} onChange={this.sortItemsHandler}/>
-                        <input type="text" name="filter" value={term} onChange={this.searchItemsHandler}/>
+                        <input type="text" value={term} onChange={this.searchItemsHandler}/>
                         <button type="button" onClick={this.resetItemsHandler}>Reset</button>
                     </div>
 

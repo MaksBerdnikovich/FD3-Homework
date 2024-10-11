@@ -1,0 +1,31 @@
+.Filter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FilterWrap {
+    width: 100%;
+    max-width: 280px;
+}
+
+.FilterAction{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.FilterResult{
+    margin-top: 20px;
+}
+
+.FilterResult textarea{
+    width: 100%;
+    min-height: 100px;
+    resize: none;
+}

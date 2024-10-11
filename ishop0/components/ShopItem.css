@@ -8,6 +8,11 @@
     padding: 10px;
 }
 
+.ShopItem th {
+    vertical-align: middle;
+    padding: 10px;
+}
+
 .ShopItem:nth-child(even){
     background-color: #f2f2f2;
 }

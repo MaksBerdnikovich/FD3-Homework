@@ -4,19 +4,25 @@ import './ShopItem.css';
 
 class ShopItem extends React.Component {
 
-  render() {
+    render() {
 
-    return (
-      <tr className='ShopItem'>
-        <td>{this.props.title}</td>
-        <td><img src={this.props.image} width="100px" height="100px" alt={this.props.title} /></td>
-        <td>{this.props.price}</td>
-        <td>{this.props.cat}</td>
-        <td>{this.props.count}</td>
-      </tr>
-    );
+        const {id, title, image, price, cat, count, isSelect, selectItem, deleteItem} = this.props
 
-  }
+        return (
+            <tr className='ShopItem'
+                style={{backgroundColor: isSelect && '#e02f5e'}}
+                onClick={() => selectItem(id)}>
+
+                <td>{title}</td>
+                <td><img src={image} width="100px" height="100px" alt={title}/></td>
+                <td>{price}</td>
+                <td>{cat}</td>
+                <td>{count}</td>
+                <td><button onClick={() => deleteItem(id)}>Delete</button></td>
+            </tr>
+        );
+
+    }
 
 }
 

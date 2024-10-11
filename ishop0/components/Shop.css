@@ -1,15 +1,25 @@
 ﻿.ShopTable {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  table-layout: fixed;
-  border: 1px solid #04AA6D;
-  padding: 5px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border: 1px solid #04AA6D;
+    padding: 5px;
 
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
 }
 
 .ShopTableCaption{
-  background-color: #04AA6D;
-  color: white;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.ShopTableHead{
+    min-height: 40px;
+    background-color: #213547;
+    color: white;
+}
+
+.ShopTableHead th{
+    padding: 10px;
 }

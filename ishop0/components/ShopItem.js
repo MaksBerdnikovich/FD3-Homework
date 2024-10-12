@@ -10,7 +10,7 @@ class ShopItem extends React.Component {
 
         return (
             <tr className='ShopItem'
-                style={{backgroundColor: isSelect && '#e02f5e'}}
+                style={{backgroundColor: (isSelect) && '#e02f5e'}}
                 onClick={() => selectItem(id)}>
 
                 <td>{title}</td>
@@ -18,7 +18,14 @@ class ShopItem extends React.Component {
                 <td>{price}</td>
                 <td>{cat}</td>
                 <td>{count}</td>
-                <td><button onClick={() => deleteItem(id)}>Delete</button></td>
+                <td>
+                    <button onClick={
+                        (e) => {
+                            e.stopPropagation();
+
+                            deleteItem(id);
+                        }}>Delete</button>
+                </td>
             </tr>
         );
 

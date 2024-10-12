@@ -17,7 +17,7 @@ class Shop extends React.Component {
                         return {...item, isSelect: !item.isSelect}
                     }
 
-                    return item
+                    return {...item, isSelect: false}
                 })
             }
         })

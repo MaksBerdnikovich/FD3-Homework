@@ -2,23 +2,21 @@
 import './Filter.css';
 
 class Filter extends React.Component {
-    defState = {
+    state = {
         checked: false,
         term: ''
     }
-
-    state = this.defState
 
     searchItemsHandler = (e) => this.setState({term: e.target.value})
 
     sortItemsHandler = (e) => this.setState({checked: e.target.checked})
 
-    resetItemsHandler = () => this.setState(this.defState)
+    resetItemsHandler = () => this.setState({checked: false, term: ''})
 
     sortItems = (items, checked) => {
         if (checked) {
             const copy = [...items]
-            return copy.sort((a, b) => (a > b ? 1 : -1))
+            return copy.sort()
         }
 
         return items
@@ -32,23 +30,25 @@ class Filter extends React.Component {
         return items
     }
 
+    setFilteredData = () => {
+        return this.sortItems(
+            this.searchItems(this.props.data, this.state.term),
+            this.state.checked
+        ).join('\n')
+    }
+
     render() {
-        const {data} = this.props
-        const {checked, term} = this.state
-
-        const filteredData = this.sortItems(this.searchItems(data, term), checked)
-
         return (
             <form className="Filter">
                 <div className="FilterWrap">
                     <div className="FilterAction">
-                        <input type="checkbox" checked={checked} onChange={this.sortItemsHandler}/>
-                        <input type="text" value={term} onChange={this.searchItemsHandler}/>
+                        <input type="checkbox" checked={this.state.checked} onChange={this.sortItemsHandler}/>
+                        <input type="text" value={this.state.term} onChange={this.searchItemsHandler}/>
                         <button type="button" onClick={this.resetItemsHandler}>Reset</button>
                     </div>
 
                     <div className="FilterResult">
-                        <textarea value={filteredData.join('\n')} readOnly={true} />
+                        <textarea value={this.setFilteredData()} readOnly={true} />
                     </div>
                 </div>
             </form>

@@ -7,7 +7,7 @@ import data from './data.json';
 
 ReactDOM.render(
     <Shop
-        title={'Fake Store'}
+        title={'Store'}
         products={data}
     />
     , document.getElementById('shop')

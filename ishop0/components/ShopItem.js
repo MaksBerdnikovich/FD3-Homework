@@ -3,29 +3,30 @@
 import './ShopItem.css';
 
 class ShopItem extends React.Component {
+    select = () => this.props.selectItem(this.props.id)
+
+    delete = (e) => {
+        e.stopPropagation()
+
+        if (!confirm('Подтвердить удаление?')) return
+
+        this.props.deleteItem(this.props.id);
+    }
 
     render() {
-
-        const {id, title, image, price, cat, count, isSelect, selectItem, deleteItem} = this.props
+        const {id, selectedId, title, image, price, cat, count} = this.props
 
         return (
             <tr className='ShopItem'
-                style={{backgroundColor: (isSelect) && '#e02f5e'}}
-                onClick={() => selectItem(id)}>
+                style={{backgroundColor: (selectedId === id) && '#e02f5e'}}
+                onClick={this.select}>
 
                 <td>{title}</td>
                 <td><img src={image} width="100px" height="100px" alt={title}/></td>
                 <td>{price}</td>
                 <td>{cat}</td>
                 <td>{count}</td>
-                <td>
-                    <button onClick={
-                        (e) => {
-                            e.stopPropagation();
-
-                            deleteItem(id);
-                        }}>Delete</button>
-                </td>
+                <td><button onClick={this.delete}>Delete</button></td>
             </tr>
         );
 

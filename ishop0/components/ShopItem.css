@@ -1,5 +1,6 @@
 ﻿.ShopItem {
     text-align: center;
+    cursor: pointer;
 }
 
 .ShopItem td,
@@ -15,4 +16,10 @@
 
 .ShopItem:nth-child(even){
     background-color: #f2f2f2;
+}
+
+.ShopItem button{
+    display: inline;
+    margin: 5px;
+    cursor: pointer;
 }

@@ -6,9 +6,6 @@ import Shop from './components/Shop';
 import data from './data.json';
 
 ReactDOM.render(
-    <Shop
-        title={'Store'}
-        products={data}
-    />
+    <Shop title={'Store'} products={data}/>
     , document.getElementById('shop')
 );

@@ -13,6 +13,10 @@ class ShopItem extends React.Component {
         this.props.deleteItem(this.props.id);
     }
 
+    edit = (e) => {
+        e.stopPropagation()
+    }
+
     render() {
         const {id, selectedId, title, image, price, cat, count} = this.props
 
@@ -22,11 +26,14 @@ class ShopItem extends React.Component {
                 onClick={this.select}>
 
                 <td>{title}</td>
-                <td><img src={image} width="100px" height="100px" alt={title}/></td>
-                <td>{price}</td>
+                <td><img src={image} width="50px" height="50px" alt={title}/></td>
+                <td>{price + '$'}</td>
                 <td>{cat}</td>
                 <td>{count}</td>
-                <td><button onClick={this.delete}>Delete</button></td>
+                <td>
+                    <button onClick={this.edit}>Edit</button>
+                    <button onClick={this.delete}>Delete</button>
+                </td>
             </tr>
         );
 

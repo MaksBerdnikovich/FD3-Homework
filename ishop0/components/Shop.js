@@ -27,24 +27,48 @@ class Shop extends React.Component {
         );
 
         return (
-            <table className='ShopTable'>
-                <caption className="ShopTableCaption">
-                    <h2>{title}</h2>
-                </caption>
+            <div className='ShopRow'>
+                <div className='ShopCol'>
+                    <table className='ShopTable'>
+                        <caption className="ShopTableCaption">
+                            <h2>{title}</h2>
+                        </caption>
 
-                <thead>
-                    <tr className="ShopTableHead">
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Count</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+                        <thead>
+                            <tr className="ShopTableHead">
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Count</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
 
-                <tbody>{shopItems}</tbody>
-            </table>
+                        <tbody>
+                            {shopItems}
+
+                            <tr className="ShopTableAction">
+                                <td colSpan={6}>
+                                    <button>New Product</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className='ShopCol'>
+                    <table className='ShopTable'>
+                        <caption className="ShopTableCaption">
+                            <h2></h2>
+                        </caption>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         );
     }
 }

@@ -18,7 +18,7 @@ class ShopItem extends React.Component {
     }
 
     render() {
-        const {id, selectedId, title, image, price, cat, count} = this.props
+        const {id, selectedId, title, image, price, quantity} = this.props
 
         return (
             <tr className='ShopItem'
@@ -28,8 +28,7 @@ class ShopItem extends React.Component {
                 <td>{title}</td>
                 <td><img src={image} width="50" height="50" alt={title}/></td>
                 <td>{price + '$'}</td>
-                <td>{cat}</td>
-                <td>{count}</td>
+                <td>{quantity}</td>
                 <td>
                     <button onClick={this.edit}>Edit</button>
                     <button onClick={this.delete}>Delete</button>

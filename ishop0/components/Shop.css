@@ -37,13 +37,15 @@ html{
     text-align: center;
 }
 
-.ShopAdd{
+.ShopAction{
     padding: 10px;
     background-color: #213547;
     text-align: center;
 }
 
-.ShopAdd button{
+.ShopAction button{
+    min-width: 80px;
     padding: 5px 10px;
+    margin: 0 5px;
     cursor: pointer;
 }

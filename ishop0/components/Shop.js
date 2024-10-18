@@ -1,13 +1,17 @@
 ﻿import React from 'react';
 import ShopItems from "./ShopItems";
+import ShopCard from "./ShopCard";
+import ShopForm from "./ShopForm";
 
 import './Shop.css';
-import ShopCard from "./ShopCard";
+
 
 class Shop extends React.Component {
     state = {
         items: this.props.products,
-        selectedId: null
+        selectedId: null,
+        isEditing: false,
+        isAddition: false,
     }
 
     selectItemHandler = (id) => this.setState({selectedId: id})
@@ -15,16 +19,35 @@ class Shop extends React.Component {
     deleteItemHandler = (id) => {
         this.setState({
             items: this.state.items.filter(item => item.id !== id),
-            selectedId: id !== this.state.selectedId ? this.state.selectedId : null
+            selectedId: null
         })
     }
 
-    addItemHandler = () => {
-
-    }
+    addItemHandler = () => this.setState({
+        selectedId: null,
+        isEditing: false,
+        isAddition: true
+    })
 
     editItemHandler = () => {
 
+    }
+
+    addItem = (id, title, image, price, quantity) => {
+        const newItem = {
+            id: id,
+            title: title,
+            image: image,
+            price: price,
+            quantity: quantity
+        }
+
+        console.log(newItem)
+
+        this.setState(({items}) => ({
+            items: [...items, newItem],
+            isAddition: false
+        }))
     }
 
     setSelectedCard = () => {
@@ -49,19 +72,22 @@ class Shop extends React.Component {
                     {(this.state.items.length > 0) && (
                         <ShopItems {...this.state}
                                    selectItem={this.selectItemHandler}
-                                   addItem={this.addItemHandler}
                                    editItem={this.editItemHandler}
                                    deleteItem={this.deleteItemHandler}/>
                     )}
 
-                    <div className="ShopAdd">
-                        <button onClick={this.add}>New Product</button>
+                    <div className="ShopAction">
+                        <button onClick={this.addItemHandler}>New Product</button>
                     </div>
                 </div>
 
                 <div className='ShopCol'>
-                    {(this.state.selectedId) && (
+                    {(this.state.selectedId && (!this.state.isAddition && !this.state.isEditing)) && (
                         <ShopCard {...this.setSelectedCard()} />
+                    )}
+
+                    {(this.state.isAddition || this.state.isEditing) && (
+                        <ShopForm {...this.state} addItem={this.addItem}/>
                     )}
                 </div>
             </div>

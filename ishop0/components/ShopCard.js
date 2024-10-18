@@ -4,7 +4,7 @@ import './ShopCard.css';
 
 class ShopCard extends React.Component {
     render() {
-        const {title, image, price, cat, count} = this.props
+        const {title, image, price, quantity} = this.props
 
         return (
             <table className='ShopCard'>
@@ -23,12 +23,8 @@ class ShopCard extends React.Component {
                         <td>{price + '$'}</td>
                     </tr>
                     <tr className="ShopCardItem">
-                        <td>Category</td>
-                        <td>{cat}</td>
-                    </tr>
-                    <tr className="ShopCardItem">
-                        <td>Count</td>
-                        <td>{count}</td>
+                        <td>Quantity</td>
+                        <td>{quantity}</td>
                     </tr>
                 </tbody>
             </table>

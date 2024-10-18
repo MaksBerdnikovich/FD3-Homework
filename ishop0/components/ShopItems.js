@@ -12,8 +12,7 @@ class ShopItems extends React.Component {
                         <th>Name</th>
                         <th>Image</th>
                         <th>Price</th>
-                        <th>Category</th>
-                        <th>Count</th>
+                        <th>Quantity</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

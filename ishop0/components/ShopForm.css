@@ -1,0 +1,40 @@
+﻿.ShopForm{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    border: 1px solid #213547;
+}
+
+.ShopFormHead{
+    min-height: 40px;
+    background-color: #213547;
+    color: white;
+}
+
+.ShopFormHead th{
+    padding: 10px;
+}
+
+.ShopFormItem td{
+    padding: 10px;
+    border-top: 1px solid #213547;
+}
+
+.ShopFormItem td:first-child {
+    width: 20%;
+}
+
+.ShopFormItem input{
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.ShopFormItem label{
+    font-size: 10px;
+    color: red;
+}
+
+.ShopFormItem .error input{
+    border: 1px solid red;
+}

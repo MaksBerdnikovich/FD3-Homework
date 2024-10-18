@@ -5,49 +5,26 @@ import ShopForm from "./ShopForm";
 
 import './Shop.css';
 
-
 class Shop extends React.Component {
     state = {
         items: this.props.products,
         selectedId: null,
+        editId: null,
+        addNewId: null,
         isEditing: false,
-        isAddition: false,
+        isAddition: false
     }
 
-    selectItemHandler = (id) => this.setState({selectedId: id})
+    setDefaultState = (selectedId, editId, addNewId, isEditing, isAddition) => {
+        return {selectedId, editId, addNewId, isEditing, isAddition}
+    }
 
-    deleteItemHandler = (id) => {
-        this.setState({
-            items: this.state.items.filter(item => item.id !== id),
-            selectedId: null
+    setNewId = () => {
+        return this.state.items.reduce((acc, curr) => {
+            const item = (acc && acc.id > curr.id) ? acc : curr
+
+            return item.id + 1
         })
-    }
-
-    addItemHandler = () => this.setState({
-        selectedId: null,
-        isEditing: false,
-        isAddition: true
-    })
-
-    editItemHandler = () => {
-
-    }
-
-    addItem = (id, title, image, price, quantity) => {
-        const newItem = {
-            id: id,
-            title: title,
-            image: image,
-            price: price,
-            quantity: quantity
-        }
-
-        console.log(newItem)
-
-        this.setState(({items}) => ({
-            items: [...items, newItem],
-            isAddition: false
-        }))
     }
 
     setSelectedCard = () => {
@@ -59,17 +36,64 @@ class Shop extends React.Component {
         return cardData
     }
 
+    setEditItem = () => {
+        const {items, editId} = this.state
+
+        let editData = {}
+        items.forEach(item => item.id === editId ? editData = item : {})
+
+        return editData
+    }
+
+    selectItemHandler = (id) => this.setState(
+        this.setDefaultState(id, null, null, false, false)
+    )
+
+    addItemHandler = () => {
+        this.setState(this.setDefaultState(null, null, this.setNewId(), false, true))
+    }
+
+    editItemHandler = (id) => this.setState(
+        this.setDefaultState(null, id, null, false, false)
+    )
+
+    deleteItemHandler = (id) => {
+        this.setState({
+            items: this.state.items.filter(item => item.id !== id),
+            selectedId: null
+        })
+    }
+
+    addItem = (newItem) => {
+        this.setState(({items}) => ({
+            items: [...items, newItem]
+        }))
+    }
+
+    editItem = (editItem) => {
+        this.setState(({items}) => ({
+            items: items.map(item => item.id === editItem.id ? editItem : item)
+        }))
+    }
+
+    editingItem = () => this.setState({isEditing: true})
+
+    cancelForm = () => this.setState(
+        this.setDefaultState(null, null, null, false, false)
+    )
+
     render() {
+        const {title} = this.props
+        const {items, selectedId, editId, addNewId, isEditing, isAddition} = this.state
+
         return (
             <div className="ShopRow">
                 <div className="ShopCol ShopCol--100">
-                    <div className="ShopCaption">
-                        <h2>{this.props.title}</h2>
-                    </div>
+                    <div className="ShopCaption"><h2>{title}</h2></div>
                 </div>
 
                 <div className="ShopCol">
-                    {(this.state.items.length > 0) && (
+                    {(items.length > 0) && (
                         <ShopItems {...this.state}
                                    selectItem={this.selectItemHandler}
                                    editItem={this.editItemHandler}
@@ -77,17 +101,21 @@ class Shop extends React.Component {
                     )}
 
                     <div className="ShopAction">
-                        <button onClick={this.addItemHandler}>New Product</button>
+                        <button onClick={this.addItemHandler} disabled={isEditing || isAddition}>New Product</button>
                     </div>
                 </div>
 
                 <div className='ShopCol'>
-                    {(this.state.selectedId && (!this.state.isAddition && !this.state.isEditing)) && (
+                    {(selectedId) && (
                         <ShopCard {...this.setSelectedCard()} />
                     )}
 
-                    {(this.state.isAddition || this.state.isEditing) && (
-                        <ShopForm {...this.state} addItem={this.addItem}/>
+                    {(addNewId) && (
+                        <ShopForm id={addNewId} mode={'add'} addItem={this.addItem} cancelForm={this.cancelForm}/>
+                    )}
+
+                    {(editId) && (
+                        <ShopForm {...this.setEditItem()} mode={'edit'} editingItem={this.editingItem} editItem={this.editItem} cancelForm={this.cancelForm} />
                     )}
                 </div>
             </div>

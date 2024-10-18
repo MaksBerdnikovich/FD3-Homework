@@ -3,26 +3,33 @@
 import './ShopItem.css';
 
 class ShopItem extends React.Component {
-    select = () => this.props.selectItem(this.props.id)
+    select = () => {
+        this.props.selectItem(this.props.id)
+    }
 
     delete = (e) => {
         e.stopPropagation()
 
         if (!confirm('Подтвердить удаление?')) return
 
-        this.props.deleteItem(this.props.id);
+        this.props.deleteItem(this.props.id)
     }
 
     edit = (e) => {
         e.stopPropagation()
+
+        this.props.editItem(this.props.id)
     }
 
     render() {
-        const {id, selectedId, title, image, price, quantity} = this.props
+        const {id, selectedId, editId, title, image, price, quantity,  isEditing, isAddition} = this.props
 
         return (
             <tr className='ShopItem'
-                style={{backgroundColor: (selectedId === id) && '#e02f5e'}}
+                style={{
+                    backgroundColor: (selectedId === id || editId === id) && '#e02f5e',
+                    pointerEvents: (isEditing || isAddition) && 'none'
+                }}
                 onClick={this.select}>
 
                 <td>{title}</td>
@@ -30,8 +37,8 @@ class ShopItem extends React.Component {
                 <td>{price + '$'}</td>
                 <td>{quantity}</td>
                 <td>
-                    <button onClick={this.edit}>Edit</button>
-                    <button onClick={this.delete}>Delete</button>
+                    <button onClick={this.edit} disabled={isEditing || isAddition}>Edit</button>
+                    <button onClick={this.delete} disabled={isEditing || isAddition}>Delete</button>
                 </td>
             </tr>
         );

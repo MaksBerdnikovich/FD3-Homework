@@ -26,7 +26,7 @@ class ShopItem extends React.Component {
                 onClick={this.select}>
 
                 <td>{title}</td>
-                <td><img src={image} width="50px" height="50px" alt={title}/></td>
+                <td><img src={image} width="50" height="50" alt={title}/></td>
                 <td>{price + '$'}</td>
                 <td>{cat}</td>
                 <td>{count}</td>
@@ -36,7 +36,6 @@ class ShopItem extends React.Component {
                 </td>
             </tr>
         );
-
     }
 
 }

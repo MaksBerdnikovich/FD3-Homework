@@ -1,0 +1,17 @@
+﻿.ShopItems{
+    position: relative;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 1px solid #213547;
+}
+
+.ShopItemsHead{
+    min-height: 40px;
+    background-color: #213547;
+    color: white;
+}
+
+.ShopItemsHead th{
+    padding: 10px;
+}

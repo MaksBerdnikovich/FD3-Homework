@@ -1,8 +1,8 @@
 ﻿import React from 'react';
+import ShopItems from "./ShopItems";
 
 import './Shop.css';
-
-import ShopItem from './ShopItem';
+import ShopCard from "./ShopCard";
 
 class Shop extends React.Component {
     state = {
@@ -14,59 +14,55 @@ class Shop extends React.Component {
 
     deleteItemHandler = (id) => {
         this.setState({
-            items: this.state.items.filter(item => item.id !== id)
+            items: this.state.items.filter(item => item.id !== id),
+            selectedId: id !== this.state.selectedId ? this.state.selectedId : null
         })
     }
 
-    render() {
-        const {title} = this.props
+    addItemHandler = () => {
+
+    }
+
+    editItemHandler = () => {
+
+    }
+
+    setSelectedCard = () => {
         const {items, selectedId} = this.state
 
-        const shopItems = items.map(item =>
-            <ShopItem key={item.id} selectedId={selectedId} {...item} selectItem={this.selectItemHandler} deleteItem={this.deleteItemHandler}/>
-        );
+        let cardData = {}
+        items.forEach(item => item.id === selectedId ? cardData = item : {})
 
+        return cardData
+    }
+
+    render() {
         return (
-            <div className='ShopRow'>
-                <div className='ShopCol'>
-                    <table className='ShopTable'>
-                        <caption className="ShopTableCaption">
-                            <h2>{title}</h2>
-                        </caption>
+            <div className="ShopRow">
+                <div className="ShopCol ShopCol--100">
+                    <div className="ShopCaption">
+                        <h2>{this.props.title}</h2>
+                    </div>
+                </div>
 
-                        <thead>
-                            <tr className="ShopTableHead">
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Count</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+                <div className="ShopCol">
+                    {(this.state.items.length > 0) && (
+                        <ShopItems {...this.state}
+                                   selectItem={this.selectItemHandler}
+                                   addItem={this.addItemHandler}
+                                   editItem={this.editItemHandler}
+                                   deleteItem={this.deleteItemHandler}/>
+                    )}
 
-                        <tbody>
-                            {shopItems}
-
-                            <tr className="ShopTableAction">
-                                <td colSpan={6}>
-                                    <button>New Product</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className="ShopAdd">
+                        <button onClick={this.add}>New Product</button>
+                    </div>
                 </div>
 
                 <div className='ShopCol'>
-                    <table className='ShopTable'>
-                        <caption className="ShopTableCaption">
-                            <h2></h2>
-                        </caption>
-
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                    {(this.state.selectedId) && (
+                        <ShopCard {...this.setSelectedCard()} />
+                    )}
                 </div>
             </div>
         );

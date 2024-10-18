@@ -1,55 +1,49 @@
-﻿#shop {
-    padding: 0;
+﻿* {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
+}
+
+html{
+    overflow-x: hidden;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+#shop {
+    position: relative;
+    padding: 20px;
+    margin: 0;
 }
 
 .ShopRow{
     display: flex;
-    margin: -15px;
+    flex-wrap: wrap;
+    margin: -10px;
 }
 
 .ShopCol {
     width: 50%;
-    padding: 15px;
-}
-
-.ShopTable {
-    position: relative;
-    width: 100%;
-    table-layout: fixed;
-    border: 1px solid #04AA6D;
-    padding: 5px;
-
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
-}
-
-.ShopTableCaption{
-    background-color: #04AA6D;
-    color: white;
-}
-
-.ShopTableHead{
-    min-height: 40px;
-    background-color: #213547;
-    color: white;
-}
-
-.ShopTableHead th{
     padding: 10px;
 }
 
-.ShopTableAction{
+.ShopCol--100{
+    width: 100%;
+}
+
+.ShopCaption{
+    padding: 10px;
+    background-color: #04AA6D;
+    color: white;
+    text-align: center;
+}
+
+.ShopAdd{
+    padding: 10px;
     background-color: #213547;
     text-align: center;
 }
 
-.ShopTableAction td {
-    padding: 10px;
-}
-
-.ShopTableAction button{
+.ShopAdd button{
     padding: 5px 10px;
     cursor: pointer;
 }

@@ -22,4 +22,5 @@
     display: inline;
     margin: 5px;
     cursor: pointer;
+    min-width: 50px;
 }

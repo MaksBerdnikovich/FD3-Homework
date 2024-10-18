@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "title": "Fjallraven - Foldsack",
+        "title": "Fjallraven Foldsack",
         "price": 109.95,
         "cat": "clothing",
         "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
@@ -9,7 +9,7 @@
     },
     {
         "id": 2,
-        "title": "Mens Casual Premium Slim",
+        "title": "Mens Premium Slim",
         "price": 22.3,
         "cat": "clothing",
         "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
@@ -25,7 +25,7 @@
     },
     {
         "id": 4,
-        "title": "Mens Casual Slim Fit",
+        "title": "Mens Casual Fit",
         "price": 15.99,
         "cat": "clothing",
         "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
@@ -33,7 +33,7 @@
     },
     {
         "id": 5,
-        "title": "John Hardy Women's Legends Naga",
+        "title": "John Hardy Naga",
         "price": 695,
         "cat": "jewelery",
         "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",

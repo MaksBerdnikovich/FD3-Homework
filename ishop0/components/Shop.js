@@ -19,7 +19,7 @@ class Shop extends React.Component {
         return {selectedId, editId, addNewId, isEditing, isAddition}
     }
 
-    setNewId = () => {
+    getNewId = () => {
         return this.state.items.reduce((acc, curr) => {
             const item = (acc && acc.id > curr.id) ? acc : curr
 
@@ -27,7 +27,7 @@ class Shop extends React.Component {
         })
     }
 
-    setSelectedCard = () => {
+    getSelectedCard = () => {
         const {items, selectedId} = this.state
 
         let cardData = {}
@@ -36,7 +36,7 @@ class Shop extends React.Component {
         return cardData
     }
 
-    setEditItem = () => {
+    getEditItem = () => {
         const {items, editId} = this.state
 
         let editData = {}
@@ -50,7 +50,7 @@ class Shop extends React.Component {
     )
 
     addItemHandler = () => {
-        this.setState(this.setDefaultState(null, null, this.setNewId(), false, true))
+        this.setState(this.setDefaultState(null, null, this.getNewId(), false, true))
     }
 
     editItemHandler = (id) => this.setState(
@@ -94,7 +94,11 @@ class Shop extends React.Component {
 
                 <div className="ShopCol">
                     {(items.length > 0) && (
-                        <ShopItems {...this.state}
+                        <ShopItems items={items}
+                                   selectedId={selectedId}
+                                   editId={editId}
+                                   isEditing={isEditing}
+                                   isAddition={isAddition}
                                    selectItem={this.selectItemHandler}
                                    editItem={this.editItemHandler}
                                    deleteItem={this.deleteItemHandler}/>
@@ -107,7 +111,7 @@ class Shop extends React.Component {
 
                 <div className='ShopCol'>
                     {(selectedId) && (
-                        <ShopCard {...this.setSelectedCard()} />
+                        <ShopCard {...this.getSelectedCard()} />
                     )}
 
                     {(addNewId) && (
@@ -115,7 +119,7 @@ class Shop extends React.Component {
                     )}
 
                     {(editId) && (
-                        <ShopForm {...this.setEditItem()} mode={'edit'} editingItem={this.editingItem} editItem={this.editItem} cancelForm={this.cancelForm} />
+                        <ShopForm {...this.getEditItem()} mode={'edit'} editingItem={this.editingItem} editItem={this.editItem} cancelForm={this.cancelForm} />
                     )}
                 </div>
             </div>

@@ -10,9 +10,13 @@ class ShopForm extends React.Component {
         price: this.props.price || '',
         quantity: this.props.quantity || '',
         titleValid: !!this.props.title,
+        titleValidError: false,
         imageValid: !!this.props.image,
+        imageValidError: false,
         priceValid: !!this.props.price,
-        quantityValid: !!this.props.quantity
+        priceValidError: false,
+        quantityValid: !!this.props.quantity,
+        quantityValidError: false,
     }
 
     componentDidUpdate(prevProps) {
@@ -34,15 +38,19 @@ class ShopForm extends React.Component {
         this.setState({
             title: e.target.value,
             titleValid: e.target.value.length > 5,
+            titleValidError: !(e.target.value.length > 5),
         })
 
         if (this.props.mode === 'edit') this.props.editingItem()
     }
 
     onChangeImageHandler = (e) => {
+        const checkUrl = (url) => /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|webp|png)/i.test(url)
+
         this.setState({
             image: e.target.value,
-            imageValid: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|webp|png)/i.test(e.target.value),
+            imageValid: checkUrl(e.target.value),
+            imageValidError: !checkUrl(e.target.value),
         })
 
         if (this.props.mode === 'edit') this.props.editingItem()
@@ -99,62 +107,62 @@ class ShopForm extends React.Component {
     }
 
     render() {
-        const {id} = this.state
-
         return (
             <form>
                 <table className='ShopForm'>
                     <thead>
                         <tr className="ShopFormHead">
-                            <th colSpan={2}>{this.props.mode === 'edit' ? 'Edit' : 'Add'} Product - ID {id}</th>
+                            <th colSpan={2}>
+                                {this.props.mode === 'edit' ? 'Edit' : 'Add'} Product - ID {this.state.id}
+                            </th>
                         </tr>
                     </thead>
 
                     <tbody>
-                    <tr className="ShopFormItem">
-                        <td>Title</td>
-                        <td className={!this.state.titleValid ? 'error' : null}>
-                            <input type="text" value={this.state.title} onChange={this.onChangeTitleHandler}/>
-                            {(
-                                (!this.state.titleValid) && (
-                                    <label>{'Please, fill the field. Value must be a string and more 5 symbol'}</label>
-                                )
-                            )}
-                        </td>
-                    </tr>
-                    <tr className="ShopFormItem">
-                        <td>Image</td>
-                        <td className={!this.state.imageValid ? 'error' : null}>
-                            <input type="text" value={this.state.image} onChange={this.onChangeImageHandler}/>
-                            {(
-                                !this.state.imageValid && (
-                                    <label>{'Please, fill the field. Value must be a valid URL'}</label>
-                                )
-                            )}
-                        </td>
-                    </tr>
-                    <tr className="ShopFormItem">
-                        <td>Price</td>
-                        <td className={!this.state.priceValid ? 'error' : null}>
-                            <input type="text" value={this.state.price} onChange={this.onChangePriceHandler}/>
-                            {(
-                                !this.state.priceValid && (
-                                    <label>{'Please, fill the field. Value must be a rational number greater than 0'}</label>
-                                )
-                            )}
-                        </td>
-                    </tr>
-                    <tr className="ShopFormItem">
-                        <td>Quantity</td>
-                        <td className={!this.state.quantityValid ? 'error' : null}>
-                            <input type="text" value={this.state.quantity} onChange={this.onChangeCountHandler}/>
-                            {(
-                                !this.state.quantityValid && (
-                                    <label>{'Please, fill the field. Value must be a positive integer'}</label>
-                                )
-                            )}
-                        </td>
-                    </tr>
+                        <tr className="ShopFormItem">
+                            <td>Title</td>
+                            <td className={!this.state.titleValid && this.state.titleValidError ? 'error' : null}>
+                                <input type="text" value={this.state.title} onChange={this.onChangeTitleHandler}/>
+                                {(
+                                    (!this.state.titleValid && this.state.titleValidError) && (
+                                        <label>{'Please, fill the field. Value must be a string and more 5 symbol'}</label>
+                                    )
+                                )}
+                            </td>
+                        </tr>
+                        <tr className="ShopFormItem">
+                            <td>Image</td>
+                            <td className={!this.state.imageValid && this.state.imageValidError ? 'error' : null}>
+                                <input type="text" value={this.state.image} onChange={this.onChangeImageHandler}/>
+                                {(
+                                    (!this.state.imageValid && this.state.imageValidError) && (
+                                        <label>{'Please, fill the field. Value must be a valid URL'}</label>
+                                    )
+                                )}
+                            </td>
+                        </tr>
+                        <tr className="ShopFormItem">
+                            <td>Price</td>
+                            <td className={!this.state.priceValid && this.state.priceValidError ? 'error' : null}>
+                                <input type="text" value={this.state.price} onChange={this.onChangePriceHandler}/>
+                                {(
+                                    (!this.state.priceValid && this.state.priceValidError) && (
+                                        <label>{'Please, fill the field. Value must be a rational number greater than 0'}</label>
+                                    )
+                                )}
+                            </td>
+                        </tr>
+                        <tr className="ShopFormItem">
+                            <td>Quantity</td>
+                            <td className={!this.state.quantityValid && this.state.quantityValidError ? 'error' : null}>
+                                <input type="text" value={this.state.quantity} onChange={this.onChangeCountHandler}/>
+                                {(
+                                    (!this.state.quantityValid && this.state.quantityValidError) && (
+                                        <label>{'Please, fill the field. Value must be a positive integer'}</label>
+                                    )
+                                )}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 

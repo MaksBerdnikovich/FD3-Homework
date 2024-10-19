@@ -35,6 +35,9 @@
     color: red;
 }
 
-.ShopFormItem .error input{
+.ShopFormItem .error input,
+.ShopFormItem .error input:focus,
+.ShopFormItem .error input:focus-visible{
     border: 1px solid red;
+    outline: none;
 }

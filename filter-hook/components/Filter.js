@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, {useMemo, useState} from 'react';
 import Controls from "./Controls";
 import List from "./List";
 import './Filter.css';
@@ -12,9 +12,10 @@ const Filter = ({words}) => {
         setIsSorted(false);
     };
 
-    const filteredWords = words.filter(word => word.toLowerCase().includes(filterTerm.toLowerCase()))
-
-    const sortedWords = isSorted ? [...filteredWords].sort() : filteredWords;
+    const filteredSortedWords = useMemo(() => {
+        const filteredWords = words.filter(word => word.toLowerCase().includes(filterTerm.toLowerCase()));
+        return isSorted ? [...filteredWords].sort() : filteredWords;
+    }, [filterTerm, isSorted]);
 
     return (
         <div className="Filter">
@@ -25,7 +26,7 @@ const Filter = ({words}) => {
                 setIsSorted={setIsSorted}
                 reset={reset}
             />
-            <List words={sortedWords} />
+            <List words={filteredSortedWords} />
         </div>
     );
 };

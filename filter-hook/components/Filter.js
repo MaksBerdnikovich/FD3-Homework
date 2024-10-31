@@ -1,6 +1,7 @@
 ﻿import React, { useState } from 'react';
 import Controls from "./Controls";
 import List from "./List";
+import './Filter.css';
 
 const Filter = ({words}) => {
     const [filterTerm, setFilterTerm] = useState('');
@@ -15,13 +16,8 @@ const Filter = ({words}) => {
 
     const sortedWords = isSorted ? [...filteredWords].sort() : filteredWords;
 
-    const style = {
-        width: '280px',
-        margin: '50px auto'
-    };
-
     return (
-        <div className="Filter" style={style}>
+        <div className="Filter">
             <Controls
                 filterTerm={filterTerm}
                 setFilterTerm={setFilterTerm}

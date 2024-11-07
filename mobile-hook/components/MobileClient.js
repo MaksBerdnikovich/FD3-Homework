@@ -2,7 +2,7 @@
 
 import './MobileClient.css';
 
-const MobileClient = React.memo(({client, eventEmitter}) => {
+const MobileClient = ({client, eventEmitter}) => {
     const fioRef = useRef(client.fio);
     const balanceRef = useRef(client.balance);
     const statusRef = useRef(client.status);
@@ -35,6 +35,6 @@ const MobileClient = React.memo(({client, eventEmitter}) => {
             <td><button type="button" onClick={handleDelete}>Удалить</button></td>
         </tr>
     );
-});
+};
 
-export default MobileClient;
+export default React.memo(MobileClient);

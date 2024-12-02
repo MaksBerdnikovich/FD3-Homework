@@ -1,0 +1,17 @@
+.Header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: var(--transition);
+
+    &.sticky {
+        background-color: #ffffff;
+    }
+}
+
+.HeaderWrap{
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+}

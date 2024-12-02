@@ -1,0 +1,22 @@
+.Menu{
+    position: relative;
+    margin-right: 30px;
+
+    ul{
+        display: flex;
+        margin: 0 -15px;
+
+        li{
+            padding: 0 15px;
+
+            a{
+                font-weight: 700;
+                text-transform: uppercase;
+
+                &.active{
+                    color: var(--cl-yellow);
+                }
+            }
+        }
+    }
+}

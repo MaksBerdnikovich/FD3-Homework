@@ -1,0 +1,38 @@
+.Main{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .container{
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 15px;
+        margin: 0 auto;
+
+        outline: 1px solid var(--cl-red);
+    }
+}
+
+.Page{
+    position: relative;
+}
+
+.PageRow{
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px;
+}
+
+.PageCol{
+    width: 100%;
+    padding: 15px;
+
+    &-start{
+        width: calc(100% - 390px);
+    }
+
+    &-end{
+        width: 390px;
+    }
+}

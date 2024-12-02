@@ -160,6 +160,7 @@ body {
     font-family: 'Dosis', sans-serif;
 
     font-size: 15px;
+    font-weight: 400;
     color: #ffffff;
     background-color: #020d18;
 }
@@ -399,21 +400,14 @@ textarea {
 }
 
 :root {
-    --cl-main: #ffffff;
+    --cl-light: #ffffff;
+    --cl-dark: #020d18;
     --cl-secondary: #abb7c4;
     --cl-yellow: #dcf836;
     --cl-blue: #4280bf;
     --cl-red: #dd003f;
+    --cl-grey: #405266;
 
     --transition: all .3s ease;
     --shadow: 0px 12px 24px 0px #00000012;
-}
-
-.container{
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 15px;
-    margin: 0 auto;
-
-    outline: 1px solid var(--cl-red);
 }

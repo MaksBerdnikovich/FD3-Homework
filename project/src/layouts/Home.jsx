@@ -1,8 +1,16 @@
 function Home() {
     return (
-        <section className="Home">
+        <div className="Page">
+            <div className="PageRow">
+                <div className="PageCol PageCol-start">
 
-        </section>
+                </div>
+
+                <div className="PageCol PageCol-end">
+
+                </div>
+            </div>
+        </div>
     );
 }
 

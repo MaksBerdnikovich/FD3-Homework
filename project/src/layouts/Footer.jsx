@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <footer className="Footer">
             <div className="FooterWrap">
-                <div className="container">
+                <div className="Container">
                     <div className="FooterBlock">
                         <Copyright />
 

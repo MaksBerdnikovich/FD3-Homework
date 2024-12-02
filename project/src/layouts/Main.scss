@@ -3,19 +3,20 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
 
-    .container{
-        width: 100%;
-        max-width: 1200px;
-        padding: 0 15px;
-        margin: 0 auto;
+.Container{
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
 
-        outline: 1px solid var(--cl-red);
-    }
+    outline: 1px solid var(--cl-red);
 }
 
 .Page{
     position: relative;
+    padding: 90px 0;
 }
 
 .PageRow{

@@ -23,7 +23,7 @@ const Header = () => {
 
     return (
         <header className={`Header ${isSticky ? 'sticky' : ''}`}>
-            <div className="container">
+            <div className="Container">
                 <nav className="HeaderWrap">
                     <Logo />
 

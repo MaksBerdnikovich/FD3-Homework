@@ -1,8 +1,24 @@
+import Hero from "../components/Hero";
+
 function Watchlist() {
     return (
-        <section className="Watchlist">
+        <>
+            <Hero title="movie listing - watchlist" />
 
-        </section>
+            <div className="Page">
+                <div className="Container">
+                    <div className="PageRow">
+                        <div className="PageCol PageCol-start">
+
+                        </div>
+
+                        <div className="PageCol PageCol-end">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 

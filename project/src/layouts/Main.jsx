@@ -10,9 +10,7 @@ const Main = () => {
             <Header />
 
             <section className="Wrapper">
-                <div className="container">
-                    <Outlet />
-                </div>
+                <Outlet />
             </section>
 
             <Footer />

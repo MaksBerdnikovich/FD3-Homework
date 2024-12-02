@@ -1,0 +1,15 @@
+.Hero{
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 380px;
+    padding: 90px 0;
+    background-image: url('../../public/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.HeroTitle{
+    text-align: center;
+    text-transform: uppercase;
+}

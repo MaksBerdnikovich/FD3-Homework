@@ -1,16 +1,24 @@
+import Hero from "../components/Hero";
+
 function Home() {
     return (
-        <div className="Page">
-            <div className="PageRow">
-                <div className="PageCol PageCol-start">
+        <>
+            <Hero title="IMDB top 250 movie listing" />
 
-                </div>
+            <div className="Page">
+                <div className="Container">
+                    <div className="PageRow">
+                        <div className="PageCol PageCol-start">
 
-                <div className="PageCol PageCol-end">
+                        </div>
 
+                        <div className="PageCol PageCol-end">
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

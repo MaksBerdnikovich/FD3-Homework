@@ -1,11 +1,25 @@
-import React from "react";
+import Hero from "../components/Hero";
 
 const Favorite = () => {
     return (
-        <section className="Favorite">
+        <>
+            <Hero title="movie listing - favorite" />
 
-        </section>
+            <div className="Page">
+                <div className="Container">
+                    <div className="PageRow">
+                        <div className="PageCol PageCol-start">
+
+                        </div>
+
+                        <div className="PageCol PageCol-end">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 
-export default React.memo(Favorite)
+export default Favorite

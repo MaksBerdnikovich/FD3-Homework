@@ -136,22 +136,34 @@
 
     ul{
         display: flex;
-        margin: -5px;
+        margin: -5px -10px;
 
         li{
-            padding: 5px;
+            padding: 5px 10px;
 
             button{
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 border: 0;
-                width: 24px;
-                height: 24px;
-                flex: 0 0 24px;
                 padding: 0;
                 background: none;
                 opacity: 0.5;
+                color: var(--cl-light);
+
+                svg{
+                    width: 24px;
+                    height: 24px;
+                    flex: 0 0 24px;
+                }
+
+                h6{
+                    margin-left: 10px;
+
+                    @media only screen and (max-width: 767px){
+                        display: none;
+                    }
+                }
 
                 &:disabled{
                     opacity: 1;
@@ -163,6 +175,26 @@
                 }
             }
         }
+    }
+
+    .IconWatchlist,
+    .IconFavorite{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+        border: 1px solid;
+        border-radius: 50%;
+    }
+
+    .IconWatchlist {
+        border-color: var(--cl-yellow);
+    }
+
+    .IconFavorite {
+        border-color: var(--cl-red);
     }
 }
 

@@ -1,24 +1,21 @@
 import './Sorting.scss';
 
-const Sorting = () => {
+const Sorting = ({moviesCount, sortKey, handleSorting}) => {
     return (
         <div className="Sorting">
-            <div className="SortingTotal">Found <span>1,608</span> movies in total</div>
+            <div className="SortingTotal">Found <span>{moviesCount}</span> movies in total</div>
 
             <div className="SortingForm">
                 <label>Sort by:</label>
-                <select>
-                    <option defaultValue="RANKING">Ranking</option>
-                    <option defaultValue="USER_RATING">IMDb rating</option>
-                    <option defaultValue="RELEASE_DATE">Release date</option>
-                    <option defaultValue="USER_RATING_COUNT">Number of ratings</option>
-                    <option defaultValue="TITLE_REGIONAL">Alphabetical</option>
-                    <option defaultValue="POPULARITY">Popularity</option>
-                    <option defaultValue="RUNTIME">Runtime</option>
+                <select value={sortKey} onChange={e => handleSorting(e.target.value)}>
+                    <option value>Choose an option</option>
+                    <option value="name">Alphabetical</option>
+                    <option value="rating">IMDb rating</option>
+                    <option value="year">Release date</option>
                 </select>
             </div>
         </div>
-    );
+    )
 }
 
 export default Sorting

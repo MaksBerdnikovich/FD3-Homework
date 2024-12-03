@@ -1,4 +1,10 @@
 import Hero from "../components/Hero";
+import Filter from "../components/Filter";
+import Sorting from "../components/Sorting";
+import Pagination from "../components/Pagination";
+import Movies from "../components/Movies";
+
+import movies from "../data.json";
 
 function Home() {
     return (
@@ -9,11 +15,15 @@ function Home() {
                 <div className="Container">
                     <div className="PageRow">
                         <div className="PageCol PageCol-start">
+                            <Sorting />
 
+                            <Movies data={movies} />
+
+                            <Pagination />
                         </div>
 
                         <div className="PageCol PageCol-end">
-
+                            <Filter />
                         </div>
                     </div>
                 </div>

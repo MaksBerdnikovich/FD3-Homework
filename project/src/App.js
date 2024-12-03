@@ -13,9 +13,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main />}>
                         <Route index element={<Home />} />
+                        <Route path="/:slug" element={<Movie />} />
                         <Route path="watchlist" element={<Watchlist />} />
                         <Route path="favorite" element={<Favorite />} />
-                        <Route path="/:movie" element={<Movie />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>

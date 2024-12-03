@@ -17,11 +17,9 @@ const ScrollToTop = () => {
         window.pageYOffset > 300 ? setIsVisible(true) : setIsVisible(false)
     };
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+    const scrollToTop = (e) => {
+        e.preventDefault()
+        window.scrollTo({top: 0, behavior: 'smooth'})
     };
 
     return (

@@ -6,13 +6,16 @@
     background-size: cover;
     background-position: center;
     z-index: 10;
+
+    @media only screen and (max-width: 767px){
+        padding-top: 40px;
+    }
 }
 
 .FooterWrap{
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
     min-height: 50px;
     background-color: rgba(#020d18, 0.7);
     border-top: 1px solid var(--cl-grey);

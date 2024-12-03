@@ -9,6 +9,10 @@
     border-radius: 3px;
     margin-left: auto;
 
+    @media only screen and (max-width: 767px){
+        margin-top: 10px;
+    }
+
     label{
         position: absolute;
         display: flex;
@@ -28,9 +32,5 @@
         background-color: #233a50;
         color: var(--cl-light);
         font-weight: 500;
-
-        &::-webkit-input-placeholder {
-            color: var(--cl-secondary);
-        }
     }
 }

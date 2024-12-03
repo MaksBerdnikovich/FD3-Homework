@@ -1,0 +1,47 @@
+.Sorting{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 40px;
+    margin-bottom: 30px;
+    border-top: 1px solid var(--cl-grey);
+    border-bottom: 1px solid var(--cl-grey);
+}
+
+.SortingTotal{
+    color: var(--cl-secondary);
+
+    @media only screen and (max-width: 767px){
+        display: none;
+    }
+
+    span{
+        color: var(--cl-blue);
+    }
+}
+
+.SortingForm{
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @media only screen and (max-width: 767px){
+        min-height: 40px;
+        width: 100%;
+    }
+
+    label{
+        display: flex;
+        margin-right: 15px;
+        padding-right: 15px;
+        border-right: 1px solid var(--cl-grey);
+        white-space: nowrap;
+    }
+
+    select{
+        height: auto;
+        background-color: var(--cl-dark);
+    }
+}

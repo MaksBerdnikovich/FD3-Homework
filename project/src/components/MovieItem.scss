@@ -1,0 +1,110 @@
+.MovieItem{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.MovieItemLink{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &:hover{
+        .MovieItemImage{
+            opacity: 0.85;
+        }
+
+        .MovieItemTitle {
+            color: var(--cl-yellow);
+        }
+    }
+}
+
+.MovieItemImage{
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: var(--cl-grey-dark);
+    overflow: hidden;
+    transition: var(--transition);
+
+    img{
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+    }
+}
+
+.MovieItemTitle {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--cl-light);
+}
+
+.MovieItemBlock{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.MovieItemRating{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+
+    h6{
+        padding-right: 5px;
+        color: var(--cl-light);
+    }
+
+    &:before{
+        content: '';
+        display: flex;
+        width: 15px;
+        height: 15px;
+        flex: 0 0 15px;
+        margin-right: 5px;
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg' class='ipc-icon ipc-icon--star-inline' viewBox='0 0 24 24' fill='%23f5b50a' role='presentation'%3E%3Cpath d='M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z'%3E%3C/path%3E%3C/svg%3E");
+        background-size: cover;
+    }
+}
+
+.MovieItemAction{
+    position: relative;
+
+    ul{
+        display: flex;
+        margin: -5px;
+
+        li{
+            padding: 5px;
+
+            button{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 0;
+                width: 24px;
+                height: 24px;
+                flex: 0 0 24px;
+                padding: 0;
+                background: none;
+                opacity: 0.5;
+
+                &:disabled{
+                    opacity: 1;
+                    cursor: auto;
+                }
+
+                &:not(:disabled):hover{
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

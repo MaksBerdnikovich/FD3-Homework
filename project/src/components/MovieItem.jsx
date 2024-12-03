@@ -3,8 +3,8 @@ import {Link} from "react-router-dom";
 
 import './MovieItem.scss';
 
-const Movies = ({data}) => {
-    const [imgSrc, setImgSrc] = useState(data.image);
+const MovieItem = ({movie}) => {
+    const [imgSrc, setImgSrc] = useState(movie.thumb_url);
 
     const handleError = () => setImgSrc('cm-img.png')
 
@@ -13,20 +13,20 @@ const Movies = ({data}) => {
     return (
         <div className="MovieItem">
             <div className="MovieItemLink">
-                <Link to={getUrl(data.url)}>
+                <Link to={`/${getUrl(movie.imdb_url)}`}>
                     <div className="MovieItemImage">
-                        <img src={imgSrc} onError={handleError} height="260" alt={data.name} loading="lazy" />
+                        <img src={imgSrc} onError={handleError} height="260" alt={movie.name} loading="lazy" />
                     </div>
 
                     <div className="MovieItemTitle">
-                        {data.name}
+                        {movie.name}
                     </div>
                 </Link>
             </div>
 
             <div className="MovieItemBlock">
                 <div className="MovieItemRating">
-                    <h6>{data.aggregateRating.ratingValue}</h6> / {data.aggregateRating.bestRating}
+                    <h6>{movie.rating}</h6> / 10
                 </div>
 
                 <div className="MovieItemAction">
@@ -52,4 +52,4 @@ const Movies = ({data}) => {
     );
 }
 
-export default React.memo(Movies)
+export default React.memo(MovieItem)

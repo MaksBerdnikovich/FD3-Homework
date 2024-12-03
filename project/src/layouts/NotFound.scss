@@ -1,0 +1,55 @@
+.NotFound{
+    position: relative;
+    min-height: 100%;
+    padding: 130px 0;
+
+    @media only screen and (max-width: 767px){
+        padding: 150px 0 40px 0;
+    }
+}
+
+.NotFoundWrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.NotFoundImage{
+    display: flex;
+}
+
+.NotFoundTitle{
+    margin: 30px 0 60px 0;
+
+    @media only screen and (max-width: 767px){
+        margin: 15px 0 30px 0;
+    }
+
+    h1{
+        font-size: 60px;
+        text-transform: none;
+        font-weight: 500;
+
+        @media only screen and (max-width: 767px){
+            font-size: 36px;
+        }
+    }
+}
+
+.NotFoundLink{
+    min-width: 150px;
+
+    a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dd003f;
+        color: #ffffff;
+        padding: 10px 25px;
+        border-radius: 40px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}

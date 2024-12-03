@@ -1,4 +1,10 @@
 import Hero from "../components/Hero";
+import Sorting from "../components/Sorting";
+import Movies from "../components/Movies";
+import Pagination from "../components/Pagination";
+import Filter from "../components/Filter";
+
+import favorites from "../favorites.json";
 
 const Favorite = () => {
     return (
@@ -9,11 +15,15 @@ const Favorite = () => {
                 <div className="Container">
                     <div className="PageRow">
                         <div className="PageCol PageCol-start">
+                            <Sorting />
 
+                            <Movies movies={favorites} />
+
+                            <Pagination />
                         </div>
 
                         <div className="PageCol PageCol-end">
-
+                            <Filter />
                         </div>
                     </div>
                 </div>

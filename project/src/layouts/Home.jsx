@@ -4,9 +4,9 @@ import Sorting from "../components/Sorting";
 import Pagination from "../components/Pagination";
 import Movies from "../components/Movies";
 
-import movies from "../data.json";
+import movies from "../movies.json";
 
-function Home() {
+const Home = () => {
     return (
         <>
             <Hero title="IMDB top 250 movie listing" />
@@ -17,7 +17,7 @@ function Home() {
                         <div className="PageCol PageCol-start">
                             <Sorting />
 
-                            <Movies data={movies} />
+                            <Movies movies={movies} />
 
                             <Pagination />
                         </div>

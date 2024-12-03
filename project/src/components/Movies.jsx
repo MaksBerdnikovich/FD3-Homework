@@ -2,13 +2,13 @@ import MovieItem from "./MovieItem";
 
 import './Movies.scss';
 
-const Movies = ({data}) => {
+const Movies = ({movies}) => {
     return (
         <div className="Movies">
             <div className="MoviesRow">
-                {data.map((item, index) => (
+                {movies.map((movie, index) => (
                     <div className="MoviesCol" key={index}>
-                        <MovieItem data={item} />
+                        <MovieItem movie={movie} />
                     </div>
                 ))}
             </div>

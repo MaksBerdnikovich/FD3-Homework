@@ -1,3 +1,4 @@
+import React from "react";
 import './Sorting.scss';
 
 const Sorting = ({moviesCount, sortKey, handleSorting}) => {
@@ -18,4 +19,4 @@ const Sorting = ({moviesCount, sortKey, handleSorting}) => {
     )
 }
 
-export default Sorting
+export default React.memo(Sorting)

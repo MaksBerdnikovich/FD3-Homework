@@ -36,6 +36,7 @@ const Movies = ({movies}) => {
     useEffect(() => {
         if (!SORT_KEYS.includes(sortKey)) {
             navigate('.')
+            setSortKey('')
         }
     }, [sortKey, navigate])
 

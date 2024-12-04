@@ -1,3 +1,5 @@
+import React from "react";
+
 import './Filter.scss';
 
 const Filter = ({
@@ -86,4 +88,4 @@ const Filter = ({
     )
 }
 
-export default Filter
+export default React.memo(Filter)

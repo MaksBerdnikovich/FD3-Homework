@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 
@@ -9,7 +9,8 @@ import Filter from "./Filter";
 import './Movies.scss';
 import MoviesGrid from "./MoviesGrid";
 
-const ITEMS_PER_PAGE = 25
+const CURRENT_PAGE = 1
+const ITEMS_PER_PAGE = 50
 
 const filterParams = (movies, type) => {
     switch (type) {
@@ -31,6 +32,8 @@ const filterParams = (movies, type) => {
             const maxNumber = numbers.reduce((max, current) => (current > max ? current : max), numbers[0])
 
             return {min: minNumber, max: maxNumber}
+        case 'per_page':
+            return [50, 100, 150, movies.length]
         default:
             return {}
     }
@@ -77,12 +80,13 @@ const Movies = ({movies}) => {
     const [yearToKey, setYearToKey] = useState(query.yearTo)
     const [ratingFromKey, setRatingFromKey] = useState(query.ratingFrom)
     const [ratingToKey, setRatingToKey] = useState(query.ratingTo)
-    const [currentPage, setCurrentPage] = useState(query.page || 1)
+    const [perPageKey, setPerPageKey] = useState(query.perPage || ITEMS_PER_PAGE)
+    const [currentPage, setCurrentPage] = useState(query.page || CURRENT_PAGE)
     const [filteredMovies, setFilteredMovies] = useState(filterMovies(movies, query))
 
-    const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE)
-    const indexLastPage = +currentPage * ITEMS_PER_PAGE
-    const indexFirstPage = indexLastPage - ITEMS_PER_PAGE
+    const totalPages = Math.ceil(filteredMovies.length / perPageKey)
+    const indexLastPage = +currentPage * perPageKey
+    const indexFirstPage = indexLastPage - perPageKey
 
     const outputMoviesList = filteredMovies.slice(indexFirstPage, indexLastPage)
 
@@ -92,8 +96,8 @@ const Movies = ({movies}) => {
     }
 
     const setFilteredMoviesAction = (params) => {
-        navigate(filterQuery(query, params))
         setFilteredMovies(filterMovies(movies, filterQuery(query, params, false)))
+        navigate(filterQuery(query, params))
     }
 
     const handleGenre = (key) => {
@@ -131,13 +135,17 @@ const Movies = ({movies}) => {
         setFilteredMoviesAction({order: key})
     }
 
+    const handlePerPage = (key) => {
+        setPerPageKey(key)
+        setFilteredMoviesAction({perPage: key})
+    }
+
     const handlePagination = (key) => {
         setCurrentPage(key)
         setFilteredMoviesAction({page: key})
     }
 
     const handleClearFilter = () => {
-        navigate('.')
         setGenreKey('')
         setDirectorsKey('')
         setYearFromKey('')
@@ -145,8 +153,11 @@ const Movies = ({movies}) => {
         setRatingFromKey('')
         setRatingToKey('')
         setSortKey('')
-        setCurrentPage(1)
+        setPerPageKey(ITEMS_PER_PAGE)
+        setCurrentPage(CURRENT_PAGE)
+
         setFilteredMovies(filterMovies(movies, {}))
+        navigate('.')
     }
 
     return (
@@ -166,6 +177,9 @@ const Movies = ({movies}) => {
                             <Pagination
                                 currentPage={currentPage}
                                 totalPages={totalPages}
+                                perPage={filterParams(movies, 'per_page')}
+                                perPageKey={perPageKey}
+                                handlePerPage={handlePerPage}
                                 handlePagination={handlePagination}
                             />
                         }

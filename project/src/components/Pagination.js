@@ -1,9 +1,8 @@
-import {Link} from "react-router-dom";
+import React from "react";
+
 import './Pagination.scss';
-import {useState} from "react";
 
-
-const Pagination = ({currentPage, totalPages, handlePagination}) => {
+const Pagination = ({currentPage, totalPages, perPage, perPageKey, handlePerPage, handlePagination}) => {
     const paginationList = [];
     for (let i = 0; i < totalPages; i++) {
         paginationList.push(
@@ -19,10 +18,9 @@ const Pagination = ({currentPage, totalPages, handlePagination}) => {
         <div className="Pagination">
             <div className="PaginationForm">
                 <label>Movies per page:</label>
-                <select>
-                    <option defaultValue="10">10 Movies</option>
-                    <option defaultValue="20">20 Movies</option>
-                    <option defaultValue="ALL">All Movies</option>
+
+                <select value={perPageKey} onChange={e => handlePerPage(e.target.value)}>
+                    {perPage.map((count, i) => <option key={i} value={count}>{count < 250 ? count : 'All'} Movies</option>)}
                 </select>
             </div>
 
@@ -45,4 +43,4 @@ const Pagination = ({currentPage, totalPages, handlePagination}) => {
     );
 }
 
-export default Pagination
+export default React.memo(Pagination)

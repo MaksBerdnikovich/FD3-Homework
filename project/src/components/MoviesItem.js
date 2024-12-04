@@ -8,7 +8,7 @@ const MoviesItem = ({movie}) => {
 
     const handleError = () => setImgSrc('cm-img.png')
 
-    const getUrl = (url) => url.match(/\/[^\/]+\/([^\/]+)\//)[1]
+    const getUrl = (url) => url.match(/\/[^/]+\/([^/]+)\//)[1]
 
     return (
         <div className="MoviesItem">

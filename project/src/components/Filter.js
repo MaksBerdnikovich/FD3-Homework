@@ -1,6 +1,10 @@
 import './Filter.scss';
 
-const Filter = () => {
+const Filter = ({
+    genres, directors, years, ratings,
+    genreKey, directorsKey, yearFromKey, yearToKey, ratingFromKey, ratingToKey,
+    handleGenre, handleDirectors, handleYearFrom, handleYearTo, handleRatingFrom, handleRatingTo, handleClearFilter}
+) => {
     return (
         <div className="Filter">
             <div className="FilterTitle">
@@ -8,18 +12,24 @@ const Filter = () => {
             </div>
 
             <div className="FilterForm">
-                <form className="Form">
+                <div className="Form">
                     <div className="FormRow">
                         <div className="FormCol">
                             <div className="FormLine">
                                 <label>Genres &amp; Subgenres</label>
-                                <select>
-                                    <option defaultValue>Enter to filter genres</option>
-                                    <option defaultValue="Action1">Action 1</option>
-                                    <option defaultValue="Action2">Action 2</option>
-                                    <option defaultValue="Action3">Action 3</option>
-                                    <option defaultValue="Action4">Action 4</option>
-                                    <option defaultValue="Action5">Action 5</option>
+                                <select value={genreKey} onChange={e => handleGenre(e.target.value)}>
+                                    <option value="">Choose an option</option>
+                                    {genres.map((genre, i) => <option key={i} value={genre}>{genre}</option>)}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="FormCol">
+                            <div className="FormLine">
+                                <label>Directors</label>
+                                <select value={directorsKey} onChange={e => handleDirectors(e.target.value)}>
+                                    <option value="">Choose an option</option>
+                                    {directors.map((director, i) => <option key={i} value={director}>{director}</option>)}
                                 </select>
                             </div>
                         </div>
@@ -30,11 +40,15 @@ const Filter = () => {
 
                                 <div className="FormLineRow">
                                     <div className="FormLineCol">
-                                        <input type="text" placeholder="From" />
+                                        <input value={yearFromKey}
+                                               onChange={e => handleYearFrom(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
+                                               placeholder={`From ${years.min}`} />
                                     </div>
 
                                     <div className="FormLineCol">
-                                        <input type="text" placeholder="To" />
+                                        <input value={yearToKey}
+                                               onChange={e => handleYearTo(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
+                                               placeholder={`To ${years.max}`} />
                                     </div>
                                 </div>
                             </div>
@@ -46,11 +60,15 @@ const Filter = () => {
 
                                 <div className="FormLineRow">
                                     <div className="FormLineCol">
-                                        <input type="text" placeholder="From" />
+                                        <input value={ratingFromKey}
+                                               onChange={e => handleRatingFrom(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
+                                               placeholder={`From ${ratings.min}`} />
                                     </div>
 
                                     <div className="FormLineCol">
-                                        <input type="text" placeholder="To" />
+                                        <input value={ratingToKey}
+                                               onChange={e => handleRatingTo(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
+                                               placeholder={`To ${ratings.max}`} />
                                     </div>
                                 </div>
                             </div>
@@ -58,30 +76,14 @@ const Filter = () => {
 
                         <div className="FormCol">
                             <div className="FormLine">
-                                <label>Number of Votes Range</label>
-
-                                <div className="FormLineRow">
-                                    <div className="FormLineCol">
-                                        <input type="text" placeholder="From" />
-                                    </div>
-
-                                    <div className="FormLineCol">
-                                        <input type="text" placeholder="To" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="FormCol">
-                            <div className="FormLine">
-                                <button type="submit">Filter</button>
+                                <button type="button" onClick={handleClearFilter}>Clear Filter</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    );
+    )
 }
 
 export default Filter

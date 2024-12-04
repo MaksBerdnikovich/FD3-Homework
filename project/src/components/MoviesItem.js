@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
-import './MovieItem.scss';
+import './MoviesItem.scss';
 
-const MovieItem = ({movie}) => {
+const MoviesItem = ({movie}) => {
     const [imgSrc, setImgSrc] = useState(movie.thumb_url);
 
     const handleError = () => setImgSrc('cm-img.png')
@@ -11,25 +11,25 @@ const MovieItem = ({movie}) => {
     const getUrl = (url) => url.match(/\/[^\/]+\/([^\/]+)\//)[1]
 
     return (
-        <div className="MovieItem">
-            <div className="MovieItemLink">
+        <div className="MoviesItem">
+            <div className="MoviesItemLink">
                 <Link to={`/${getUrl(movie.imdb_url)}`}>
-                    <div className="MovieItemImage">
+                    <div className="MoviesItemImage">
                         <img src={imgSrc} onError={handleError} height="260" alt={movie.name} loading="lazy" />
                     </div>
 
-                    <div className="MovieItemTitle">
-                        {movie.name}
+                    <div className="MoviesItemTitle">
+                        <h6>{movie.name}</h6> <span>/ {movie.year}</span>
                     </div>
                 </Link>
             </div>
 
-            <div className="MovieItemBlock">
-                <div className="MovieItemRating">
+            <div className="MoviesItemBlock">
+                <div className="MoviesItemRating">
                     <h6>{movie.rating}</h6> / 10
                 </div>
 
-                <div className="MovieItemAction">
+                <div className="MoviesItemAction">
                     <ul>
                         <li>
                             <button type="button" title="Add to Watchlist">
@@ -52,4 +52,4 @@ const MovieItem = ({movie}) => {
     );
 }
 
-export default React.memo(MovieItem)
+export default React.memo(MoviesItem)

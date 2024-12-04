@@ -2,27 +2,67 @@ import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 
-import MovieItem from "./MovieItem";
 import Sorting from "./Sorting";
 import Pagination from "./Pagination";
 import Filter from "./Filter";
 
 import './Movies.scss';
+import MoviesGrid from "./MoviesGrid";
 
-const SORT_KEYS = ['name', 'rating', 'year']
+const ITEMS_PER_PAGE = 25
 
-const sortMovies = (movies, key) => {
-    const sortedMovies = [...movies]
+const filterParams = (movies, type) => {
+    switch (type) {
+        case 'genre':
+        case 'directors':
+            const items = movies.map(movie => movie[type])
+            const uniqueItems = items.reduce((acc, arr) => {
+                arr.forEach(item => {
+                    if (!acc.includes(item)) acc.push(item)
+                });
+                return acc;
+            }, []);
 
-    if (!key || !SORT_KEYS.includes(key)) return sortedMovies
+            return uniqueItems
+        case 'year':
+        case 'rating':
+            const numbers = movies.map(movie => movie[type])
+            const minNumber = numbers.reduce((min, current) => (current < min ? current : min), numbers[0])
+            const maxNumber = numbers.reduce((max, current) => (current > max ? current : max), numbers[0])
 
-    sortedMovies.sort((a, b) => {
-        if (key === 'name') return a[key] > b[key] ? 1 : -1
+            return {min: minNumber, max: maxNumber}
+        default:
+            return {}
+    }
+}
 
-        return a[key] < b[key] ? 1 : -1
+const filterQuery = (query, params, str = true) => {
+    const combineParams = [query, params].reduce((accumulator, current) => {
+        return { ...accumulator, ...current }
+    }, {})
+
+    const searchParams = new URLSearchParams(combineParams).toString()
+
+    return str ? `?${searchParams}` : combineParams
+}
+
+const filterMovies = (movies, keys) => {
+    const filteredMovies = [...movies]
+
+    if (Object.keys(keys).length === 0) return filteredMovies
+
+    return filteredMovies.filter(movie =>
+        (keys.genre ? movie.genre.includes(keys.genre) : movie) &&
+        (keys.directors ? movie.directors.includes(keys.directors) : movie) &&
+        (keys.yearFrom ? movie.year >= keys.yearFrom : movie) &&
+        (keys.yearTo ? movie.year <= keys.yearTo : movie) &&
+        (keys.ratingFrom ? movie.rating >= keys.ratingFrom : movie) &&
+        (keys.ratingTo ? movie.rating <= keys.ratingTo : movie)
+    ).sort((a, b) => {
+        if (keys.order === 'name') return a[keys.order] > b[keys.order] ? 1 : -1
+
+        return a[keys.order] < b[keys.order] ? 1 : -1
     })
-
-    return sortedMovies
 }
 
 const Movies = ({movies}) => {
@@ -30,21 +70,83 @@ const Movies = ({movies}) => {
     const navigate = useNavigate()
     const query = queryString.parse(location.search)
 
-    const [sortKey, setSortKey] = useState(query.sort)
-    const [sortedMovies, setSortedMovies] = useState(sortMovies(movies, sortKey))
+    const [sortKey, setSortKey] = useState(query.order)
+    const [genreKey, setGenreKey] = useState(query.genre)
+    const [directorsKey, setDirectorsKey] = useState(query.directors)
+    const [yearFromKey, setYearFromKey] = useState(query.yearFrom)
+    const [yearToKey, setYearToKey] = useState(query.yearTo)
+    const [ratingFromKey, setRatingFromKey] = useState(query.ratingFrom)
+    const [ratingToKey, setRatingToKey] = useState(query.ratingTo)
+    const [currentPage, setCurrentPage] = useState(query.page || 1)
+    const [filteredMovies, setFilteredMovies] = useState(filterMovies(movies, query))
 
-    useEffect(() => {
-        if (!SORT_KEYS.includes(sortKey)) {
-            navigate('.')
-            setSortKey('')
-        }
-    }, [sortKey, navigate])
+    const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE)
+    const indexLastPage = +currentPage * ITEMS_PER_PAGE
+    const indexFirstPage = indexLastPage - ITEMS_PER_PAGE
+
+    const outputMoviesList = filteredMovies.slice(indexFirstPage, indexLastPage)
+
+    if (+currentPage > totalPages) {
+        setCurrentPage(1)
+        navigate(filterQuery(query, {page: 1}))
+    }
+
+    const setFilteredMoviesAction = (params) => {
+        navigate(filterQuery(query, params))
+        setFilteredMovies(filterMovies(movies, filterQuery(query, params, false)))
+    }
+
+    const handleGenre = (key) => {
+        setGenreKey(key)
+        setFilteredMoviesAction({genre: key})
+    }
+
+    const handleDirectors = (key) => {
+        setDirectorsKey(key)
+        setFilteredMoviesAction({directors: key})
+    }
+
+    const handleYearFrom = (key) => {
+        setYearFromKey(key)
+        setFilteredMoviesAction({yearFrom: key})
+    }
+
+    const handleYearTo = (key) => {
+        setYearToKey(key)
+        setFilteredMoviesAction({yearTo: key})
+    }
+
+    const handleRatingFrom = (key) => {
+        setRatingFromKey(key)
+        setFilteredMoviesAction({ratingFrom: key})
+    }
+
+    const handleRatingTo = (key) => {
+        setRatingToKey(key)
+        setFilteredMoviesAction({ratingTo: key})
+    }
 
     const handleSorting = (key) => {
-        navigate(`?sort=${key}`)
-
         setSortKey(key)
-        setSortedMovies(sortMovies(movies, key))
+        setFilteredMoviesAction({order: key})
+    }
+
+    const handlePagination = (key) => {
+        setCurrentPage(key)
+        setFilteredMoviesAction({page: key})
+    }
+
+    const handleClearFilter = () => {
+        navigate('.')
+        setGenreKey('')
+        setDirectorsKey('')
+        setYearFromKey('')
+        setYearToKey('')
+        setRatingFromKey('')
+        setRatingToKey('')
+        setSortKey('')
+        setCurrentPage(1)
+        setFilteredMovies(filterMovies(movies, {}))
     }
 
     return (
@@ -52,23 +154,37 @@ const Movies = ({movies}) => {
             <div className="Container">
                 <div className="MoviesRow">
                     <div className="MoviesCol MoviesCol-start">
-                        <Sorting moviesCount={sortedMovies.length} sortKey={sortKey} handleSorting={handleSorting} />
+                        <Sorting
+                            moviesCount={outputMoviesList.length}
+                            sortKey={sortKey}
+                            handleSorting={handleSorting}
+                        />
 
-                        <div className="MoviesGrid">
-                            <div className="MoviesGridRow">
-                                {sortedMovies.map(movie => (
-                                    <div className="MoviesGridCol" key={movie.imdb_url}>
-                                        <MovieItem movie={movie} />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <MoviesGrid movies={outputMoviesList} />
 
-                        <Pagination />
+                        {totalPages > 1 &&
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                handlePagination={handlePagination}
+                            />
+                        }
                     </div>
 
                     <div className="MoviesCol MoviesCol-end">
-                        <Filter />
+                        <Filter
+                            genres={filterParams(movies, 'genre')}
+                            directors={filterParams(movies, 'directors')}
+                            years={filterParams(movies, 'year')}
+                            ratings={filterParams(movies, 'rating')}
+                            genreKey={genreKey} handleGenre={handleGenre}
+                            directorsKey={directorsKey} handleDirectors={handleDirectors}
+                            yearFromKey={yearFromKey} handleYearFrom={handleYearFrom}
+                            yearToKey={yearToKey} handleYearTo={handleYearTo}
+                            ratingFromKey={ratingFromKey} handleRatingFrom={handleRatingFrom}
+                            ratingToKey={ratingToKey} handleRatingTo={handleRatingTo}
+                            handleClearFilter={handleClearFilter}
+                        />
                     </div>
                 </div>
             </div>

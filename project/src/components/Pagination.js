@@ -1,6 +1,20 @@
+import {Link} from "react-router-dom";
 import './Pagination.scss';
+import {useState} from "react";
 
-const Pagination = () => {
+
+const Pagination = ({currentPage, totalPages, handlePagination}) => {
+    const paginationList = [];
+    for (let i = 0; i < totalPages; i++) {
+        paginationList.push(
+            <li key={i}>
+                <button onClick={() => handlePagination(i + 1)} className={+currentPage === i + 1 ? 'active' : ''}>
+                    {i + 1}
+                </button>
+            </li>
+        )
+    }
+
     return (
         <div className="Pagination">
             <div className="PaginationForm">
@@ -13,15 +27,18 @@ const Pagination = () => {
             </div>
 
             <div className="PaginationList">
-                <span>Page 1 of 10:</span>
+                <span>Page {currentPage} of {totalPages}:</span>
 
                 <ul>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">10</a></li>
-                    <li><a href="#">11</a></li>
+                    <li>
+                        <button onClick={() => handlePagination(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
+                    </li>
+
+                    {paginationList}
+
+                    <li>
+                        <button onClick={() => handlePagination(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
+                    </li>
                 </ul>
             </div>
         </div>

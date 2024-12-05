@@ -6,8 +6,6 @@ const Filter = ({genres, directors, years, ratings, genreKey, directorsKey, year
         handleGenre, handleDirectors, handleYearFrom, handleYearTo, handleRatingFrom, handleRatingTo, handleClearFilter
     }) => {
 
-    console.log('Render Filter')
-
     return (
         <div className="Filter">
             <div className="FilterTitle">

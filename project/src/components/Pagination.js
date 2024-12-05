@@ -14,8 +14,6 @@ const Pagination = ({currentPage, totalPages, itemsPerPage, handleItemsPerPage, 
         )
     }
 
-    console.log('Render Pagination')
-
     return (
         <div className="Pagination">
             <div className="PaginationForm">

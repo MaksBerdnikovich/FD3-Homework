@@ -2,11 +2,9 @@ import React from "react";
 import './Sorting.scss';
 
 const Sorting = ({moviesCount, sortKey, handleSorting}) => {
-    console.log('Render Sorting')
-
     return (
         <div className="Sorting">
-            <div className="SortingTotal">Found <span>{moviesCount}</span> movies in total</div>
+            <div className="SortingTotal">Found <span>{moviesCount}</span> movies in page</div>
 
             <div className="SortingForm">
                 <label>Sort by:</label>

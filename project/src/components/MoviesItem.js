@@ -10,8 +10,6 @@ const MoviesItem = ({movie}) => {
 
     const getUrl = (url) => url.match(/\/[^/]+\/([^/]+)\//)[1]
 
-    console.log('Render MoviesItem')
-
     return (
         <div className="MoviesItem">
             <div className="MoviesItemLink">

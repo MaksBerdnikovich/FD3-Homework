@@ -1,0 +1,69 @@
+.Loader {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--cl-grey-dark);
+}
+
+.LoaderWrap{
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.LoaderLine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    &:nth-child(1) {
+        border: 3px solid var(--cl-yellow);
+        border-top: 3px solid transparent;
+        animation: spin1 2s infinite linear;
+    }
+
+    &:nth-child(2) {
+        width: 30px;
+        height: 30px;
+        top: 15px;
+        left: 15px;
+        border: 3px solid var(--cl-red);
+        border-top: 3px solid transparent;
+        animation: spin2 1s infinite linear;
+    }
+}
+
+@keyframes spin1 {
+    0% {
+        transform: rotate(360deg);
+        opacity: 1;
+    }
+    50% {
+        transform: rotate(180deg);
+        opacity: 0.75;
+    }
+    100% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+@keyframes spin2 {
+    0% {
+        transform: rotate(0deg);
+        opacity: 0.75;
+    }
+    50% {
+        transform: rotate(180deg);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 0.75;
+    }
+}

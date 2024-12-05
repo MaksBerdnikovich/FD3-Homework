@@ -1,21 +1,24 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
+import Loader from "../System/Loader";
 
 import './MoviesItem.scss';
 
 const MoviesItem = ({movie}) => {
-    const [imgSrc, setImgSrc] = useState(movie.thumb_url);
+    const [imgLoading, setImgLoading] = useState(true)
+    const [imgSrc, setImgSrc] = useState(movie.thumb_url)
 
-    const handleError = () => setImgSrc('cm-img.png')
-
-    const getUrl = (url) => url.match(/\/[^/]+\/([^/]+)\//)[1]
+    const handleImgLoad = () => setImgLoading(false)
+    const handleImgError = () => setImgSrc('cm-img.png')
 
     return (
         <div className="MoviesItem">
             <div className="MoviesItemLink">
-                <Link to={`/${getUrl(movie.imdb_url)}`}>
+                <Link to={movie.imdb_url}>
                     <div className="MoviesItemImage">
-                        <img src={imgSrc} onError={handleError} height="260" alt={movie.name} loading="lazy" />
+                        {imgLoading && <Loader />}
+
+                        <img src={imgSrc} onError={handleImgError} onLoad={handleImgLoad} height="260" alt={movie.name} />
                     </div>
 
                     <div className="MoviesItemTitle">

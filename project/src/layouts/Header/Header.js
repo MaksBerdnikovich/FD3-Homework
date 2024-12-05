@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Logo from "../components/Logo";
-import Menu from "../components/Menu";
-import Search from "../components/Search";
+import Logo from "../../components/Header/Logo";
+import Menu from "../../components/Header/Menu";
+import Search from "../../components/Filters/Search";
 
 import './Header.scss';
 
@@ -17,7 +17,7 @@ const Header = () => {
     }, []);
 
     const handleScroll = () => {
-        const scrollTop = window.scrollY;
+        const scrollTop = window.scrollY
         scrollTop > 50 ? setIsSticky(true) : setIsSticky(false)
     };
 

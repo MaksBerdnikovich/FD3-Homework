@@ -2,9 +2,9 @@ import {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 
-import Sorting from "./Sorting";
-import Pagination from "./Pagination";
-import Filter from "./Filter";
+import Sorting from "../Sorting/Sorting";
+import Pagination from "../Pagination/Pagination";
+import Filter from "../Filters/Filter";
 
 import './Movies.scss';
 import MoviesGrid from "./MoviesGrid";

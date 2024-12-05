@@ -1,5 +1,5 @@
-import Copyright from "../components/Copyright";
-import ScrollToTop from "../components/ScrollToTop";
+import Copyright from "../../components/Footer/Copyright";
+import ScrollToTop from "../../components/Footer/ScrollToTop";
 
 import "./Footer.scss";
 

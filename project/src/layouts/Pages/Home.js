@@ -1,7 +1,7 @@
-import Hero from "../components/Hero";
-import Movies from "../components/Movies";
+import Hero from "../../components/Hero/Hero";
+import Movies from "../../components/Movies/Movies";
 
-import movies from "../movies.json";
+import movies from "../../movies.json";
 
 const Home = () => {
     return (

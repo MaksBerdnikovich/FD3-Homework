@@ -1,7 +1,7 @@
-import Hero from "../components/Hero";
-import Movies from "../components/Movies";
+import Hero from "../../components/Hero/Hero";
+import Movies from "../../components/Movies/Movies";
 
-import watchlist from "../watchlist.json";
+import watchlist from "../../watchlist.json";
 
 function Watchlist() {
     return (

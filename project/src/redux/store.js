@@ -1,11 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit';
-
-import clientsReducer from './clientsSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import moviesReducer from './slices/moviesSlice';
+import filterReducer from './slices/filterSlice';
 
 const store = configureStore({
     reducer: {
-        clients: clientsReducer,
+        movies: moviesReducer,
+        filter: filterReducer,
     },
-})
+});
 
-export default store
+export default store;

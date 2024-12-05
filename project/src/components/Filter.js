@@ -2,11 +2,12 @@ import React from "react";
 
 import './Filter.scss';
 
-const Filter = ({
-    genres, directors, years, ratings,
-    genreKey, directorsKey, yearFromKey, yearToKey, ratingFromKey, ratingToKey,
-    handleGenre, handleDirectors, handleYearFrom, handleYearTo, handleRatingFrom, handleRatingTo, handleClearFilter}
-) => {
+const Filter = ({genres, directors, years, ratings, genreKey, directorsKey, yearFromKey, yearToKey, ratingFromKey, ratingToKey,
+        handleGenre, handleDirectors, handleYearFrom, handleYearTo, handleRatingFrom, handleRatingTo, handleClearFilter
+    }) => {
+
+    console.log('Render Filter')
+
     return (
         <div className="Filter">
             <div className="FilterTitle">
@@ -20,7 +21,7 @@ const Filter = ({
                             <div className="FormLine">
                                 <label>Genres &amp; Subgenres</label>
                                 <select value={genreKey} onChange={e => handleGenre(e.target.value)}>
-                                    <option value="">Choose an option</option>
+                                    <option value={''}>Choose an option</option>
                                     {genres.map((genre, i) => <option key={i} value={genre}>{genre}</option>)}
                                 </select>
                             </div>
@@ -30,7 +31,7 @@ const Filter = ({
                             <div className="FormLine">
                                 <label>Directors</label>
                                 <select value={directorsKey} onChange={e => handleDirectors(e.target.value)}>
-                                    <option value="">Choose an option</option>
+                                    <option value={''}>Choose an option</option>
                                     {directors.map((director, i) => <option key={i} value={director}>{director}</option>)}
                                 </select>
                             </div>
@@ -42,15 +43,11 @@ const Filter = ({
 
                                 <div className="FormLineRow">
                                     <div className="FormLineCol">
-                                        <input value={yearFromKey}
-                                               onChange={e => handleYearFrom(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
-                                               placeholder={`From ${years.min}`} />
+                                        <input value={yearFromKey} type="number" onChange={e => handleYearFrom(e.target.value)} placeholder={`From ${years.min}`} />
                                     </div>
 
                                     <div className="FormLineCol">
-                                        <input value={yearToKey}
-                                               onChange={e => handleYearTo(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
-                                               placeholder={`To ${years.max}`} />
+                                        <input value={yearToKey} type="number" onChange={e => handleYearTo(e.target.value)} placeholder={`To ${years.max}`} />
                                     </div>
                                 </div>
                             </div>
@@ -62,15 +59,11 @@ const Filter = ({
 
                                 <div className="FormLineRow">
                                     <div className="FormLineCol">
-                                        <input value={ratingFromKey}
-                                               onChange={e => handleRatingFrom(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
-                                               placeholder={`From ${ratings.min}`} />
+                                        <input value={ratingFromKey} type="number" onChange={e => handleRatingFrom(e.target.value)} placeholder={`From ${ratings.min}`} />
                                     </div>
 
                                     <div className="FormLineCol">
-                                        <input value={ratingToKey}
-                                               onChange={e => handleRatingTo(e.target.value.replace(/[A-Za-zА-Яа-яЁё]/, ''))}
-                                               placeholder={`To ${ratings.max}`} />
+                                        <input value={ratingToKey} type="number" onChange={e => handleRatingTo(e.target.value)} placeholder={`To ${ratings.max}`} />
                                     </div>
                                 </div>
                             </div>

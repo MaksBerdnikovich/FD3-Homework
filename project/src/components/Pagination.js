@@ -2,7 +2,7 @@ import React from "react";
 
 import './Pagination.scss';
 
-const Pagination = ({currentPage, totalPages, perPage, perPageKey, handlePerPage, handlePagination}) => {
+const Pagination = ({currentPage, totalPages, itemsPerPage, handleItemsPerPage, handlePagination}) => {
     const paginationList = [];
     for (let i = 0; i < totalPages; i++) {
         paginationList.push(
@@ -14,13 +14,18 @@ const Pagination = ({currentPage, totalPages, perPage, perPageKey, handlePerPage
         )
     }
 
+    console.log('Render Pagination')
+
     return (
         <div className="Pagination">
             <div className="PaginationForm">
                 <label>Movies per page:</label>
 
-                <select value={perPageKey} onChange={e => handlePerPage(e.target.value)}>
-                    {perPage.map((count, i) => <option key={i} value={count}>{count < 250 ? count : 'All'} Movies</option>)}
+                <select value={itemsPerPage} onChange={e => handleItemsPerPage(e.target.value)}>
+                    <option value={50}>50 Movies</option>
+                    <option value={100}>100 Movies</option>
+                    <option value={150}>150 Movies</option>
+                    <option value={250}>All Movies</option>
                 </select>
             </div>
 

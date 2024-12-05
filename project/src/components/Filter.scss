@@ -41,7 +41,11 @@
         cursor: pointer;
         transition: all .3s ease;
 
-        &:hover{
+        &:disabled{
+            opacity: 0.5;
+        }
+
+        &:not(:disabled):hover{
             opacity: 0.85;
         }
     }

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 
@@ -32,8 +32,6 @@ const filterParams = (movies, type) => {
             const maxNumber = numbers.reduce((max, current) => (current > max ? current : max), numbers[0])
 
             return {min: minNumber, max: maxNumber}
-        case 'per_page':
-            return [50, 100, 150, movies.length]
         default:
             return {}
     }
@@ -44,15 +42,22 @@ const filterQuery = (query, params, str = true) => {
         return { ...accumulator, ...current }
     }, {})
 
+    for (const key in combineParams) {
+        if (combineParams[key] === '' ) delete combineParams[key]
+    }
+
     const searchParams = new URLSearchParams(combineParams).toString()
 
     return str ? `?${searchParams}` : combineParams
 }
 
 const filterMovies = (movies, keys) => {
-    const filteredMovies = [...movies]
+    const filterMovies = [...movies]
 
-    if (Object.keys(keys).length === 0) return filteredMovies
+    const indexLastPage = (keys.page && keys.perPage) ? Number(keys.page) * Number(keys.perPage) : CURRENT_PAGE * ITEMS_PER_PAGE
+    const indexFirstPage = (keys.page && keys.perPage) ? indexLastPage - Number(keys.perPage) : indexLastPage - ITEMS_PER_PAGE
+
+    const filteredMovies = filterMovies.slice(indexFirstPage, indexLastPage)
 
     return filteredMovies.filter(movie =>
         (keys.genre ? movie.genre.includes(keys.genre) : movie) &&
@@ -62,6 +67,7 @@ const filterMovies = (movies, keys) => {
         (keys.ratingFrom ? movie.rating >= keys.ratingFrom : movie) &&
         (keys.ratingTo ? movie.rating <= keys.ratingTo : movie)
     ).sort((a, b) => {
+        if (keys.order === '') return false
         if (keys.order === 'name') return a[keys.order] > b[keys.order] ? 1 : -1
 
         return a[keys.order] < b[keys.order] ? 1 : -1
@@ -73,31 +79,30 @@ const Movies = ({movies}) => {
     const navigate = useNavigate()
     const query = queryString.parse(location.search)
 
-    const [sortKey, setSortKey] = useState(query.order)
-    const [genreKey, setGenreKey] = useState(query.genre)
-    const [directorsKey, setDirectorsKey] = useState(query.directors)
-    const [yearFromKey, setYearFromKey] = useState(query.yearFrom)
-    const [yearToKey, setYearToKey] = useState(query.yearTo)
-    const [ratingFromKey, setRatingFromKey] = useState(query.ratingFrom)
-    const [ratingToKey, setRatingToKey] = useState(query.ratingTo)
-    const [perPageKey, setPerPageKey] = useState(query.perPage || ITEMS_PER_PAGE)
+    const [sortKey, setSortKey] = useState(query.order || '')
+    const [genreKey, setGenreKey] = useState(query.genre || '')
+    const [directorsKey, setDirectorsKey] = useState(query.directors || '')
+    const [yearFromKey, setYearFromKey] = useState(query.yearFrom || '')
+    const [yearToKey, setYearToKey] = useState(query.yearTo || '')
+    const [ratingFromKey, setRatingFromKey] = useState(query.ratingFrom || '')
+    const [ratingToKey, setRatingToKey] = useState(query.ratingTo || '')
+
+    const [itemsPerPage, setItemsPerPage] = useState(query.perPage || ITEMS_PER_PAGE)
     const [currentPage, setCurrentPage] = useState(query.page || CURRENT_PAGE)
+    //const [totalPages, setTotalPages] = useState()
+
     const [filteredMovies, setFilteredMovies] = useState(filterMovies(movies, query))
 
-    const totalPages = Math.ceil(filteredMovies.length / perPageKey)
-    const indexLastPage = +currentPage * perPageKey
-    const indexFirstPage = indexLastPage - perPageKey
+    const totalPages = Math.ceil(movies.length / itemsPerPage)
 
-    const outputMoviesList = filteredMovies.slice(indexFirstPage, indexLastPage)
 
-    if (+currentPage > totalPages) {
-        setCurrentPage(1)
-        navigate(filterQuery(query, {page: 1}))
-    }
+    console.log(itemsPerPage)
+    console.log(totalPages)
+    //console.log(navigate)
 
     const setFilteredMoviesAction = (params) => {
-        setFilteredMovies(filterMovies(movies, filterQuery(query, params, false)))
         navigate(filterQuery(query, params))
+        setFilteredMovies(filterMovies(movies, filterQuery(query, params, false)))
     }
 
     const handleGenre = (key) => {
@@ -135,17 +140,21 @@ const Movies = ({movies}) => {
         setFilteredMoviesAction({order: key})
     }
 
-    const handlePerPage = (key) => {
-        setPerPageKey(key)
-        setFilteredMoviesAction({perPage: key})
-    }
-
     const handlePagination = (key) => {
         setCurrentPage(key)
         setFilteredMoviesAction({page: key})
     }
 
+    const handleItemsPerPage = (key) => {
+        setItemsPerPage(+key)
+        setCurrentPage(CURRENT_PAGE)
+        setFilteredMoviesAction({perPage: key})
+    }
+
     const handleClearFilter = () => {
+        navigate(`?page=${CURRENT_PAGE}&perPage=${ITEMS_PER_PAGE}`)
+        setFilteredMovies(filterMovies(movies, {}))
+
         setGenreKey('')
         setDirectorsKey('')
         setYearFromKey('')
@@ -153,12 +162,15 @@ const Movies = ({movies}) => {
         setRatingFromKey('')
         setRatingToKey('')
         setSortKey('')
-        setPerPageKey(ITEMS_PER_PAGE)
         setCurrentPage(CURRENT_PAGE)
-
-        setFilteredMovies(filterMovies(movies, {}))
-        navigate('.')
+        setItemsPerPage(ITEMS_PER_PAGE)
     }
+
+    useEffect(() => {
+        if (Object.keys(query).length === 0) {
+            navigate(`?page=${CURRENT_PAGE}&perPage=${ITEMS_PER_PAGE}`)
+        }
+    }, [])
 
     return (
         <div className="Movies">
@@ -166,20 +178,19 @@ const Movies = ({movies}) => {
                 <div className="MoviesRow">
                     <div className="MoviesCol MoviesCol-start">
                         <Sorting
-                            moviesCount={outputMoviesList.length}
+                            moviesCount={filteredMovies.length}
                             sortKey={sortKey}
                             handleSorting={handleSorting}
                         />
 
-                        <MoviesGrid movies={outputMoviesList} />
+                        <MoviesGrid movies={filteredMovies} />
 
                         {totalPages > 1 &&
                             <Pagination
                                 currentPage={currentPage}
                                 totalPages={totalPages}
-                                perPage={filterParams(movies, 'per_page')}
-                                perPageKey={perPageKey}
-                                handlePerPage={handlePerPage}
+                                itemsPerPage={itemsPerPage}
+                                handleItemsPerPage={handleItemsPerPage}
                                 handlePagination={handlePagination}
                             />
                         }

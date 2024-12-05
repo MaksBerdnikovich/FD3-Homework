@@ -10,6 +10,8 @@ const MoviesItem = ({movie}) => {
 
     const getUrl = (url) => url.match(/\/[^/]+\/([^/]+)\//)[1]
 
+    console.log('Render MoviesItem')
+
     return (
         <div className="MoviesItem">
             <div className="MoviesItemLink">
@@ -34,7 +36,7 @@ const MoviesItem = ({movie}) => {
                         <li>
                             <button type="button" title="Add to Watchlist">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#dcf836">
-                                    <path d="M17 3c1.05 0 1.918.82 1.994 1.851L19 5v16l-7-3-7 3V5c0-1.05.82-1.918 1.851-1.994L7 3h10zm-4 4h-2v3H8v2h3v3h2v-3h3v-2h-3V7z" fill="#dcf836"></path>
+                                    <path d="M17 3c1.05 0 1.918.82 1.994 1.851L19 5v16l-7-3-7 3V5c0-1.05.82-1.918 1.851-1.994L7 3h10zm-4 4h-2v3H8v2h3v3h2v-3h3v-2h-3V7z" fill="#dcf836" />
                                 </svg>
                             </button>
                         </li>

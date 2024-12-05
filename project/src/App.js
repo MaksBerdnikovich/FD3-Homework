@@ -13,10 +13,11 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main />}>
                         <Route index element={<Home />} />
-                        {/*<Route path="/:pageNumber" element={<Home />} />*/}
-                        <Route path="/title/:slug" element={<Movie />} />
-                        <Route path="/watchlist" element={<Watchlist />} />
-                        <Route path="/favorite" element={<Favorite />} />
+                        <Route path=":pageNumber" element={<Home />} />
+                        <Route path="title/:slug" element={<Movie />} />
+                        <Route path="watchlist" element={<Watchlist />} />
+                        <Route path="favorite" element={<Favorite />} />
+                        <Route path="404Page" element={<NotFound />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>

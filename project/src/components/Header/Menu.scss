@@ -1,11 +1,6 @@
 .Menu{
     position: relative;
-    margin-right: 30px;
-
-    @media only screen and (max-width: 767px){
-        margin-right: 0;
-        margin-left: auto;
-    }
+    margin-left: auto;
 
     ul{
         display: flex;
@@ -15,8 +10,27 @@
             padding: 0 15px;
 
             a{
+                position: relative;
                 font-weight: 700;
                 text-transform: uppercase;
+
+                sup{
+                    position: absolute;
+                    top: -5px;
+                    right: -10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 12px;
+                    min-height: 12px;
+                    background-color: var(--cl-light);
+                    border-radius: 50%;
+                    line-height: 1;
+                    font-size: 8px;
+                    font-weight: 700;
+                    text-align: center;
+                    color: var(--cl-dark);
+                }
 
                 &.active{
                     color: var(--cl-yellow);

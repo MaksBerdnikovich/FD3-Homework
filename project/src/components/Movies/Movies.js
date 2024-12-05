@@ -1,6 +1,6 @@
 import {useEffect} from "react";
+import {useParams} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
-//import {BsBookmarkStarFill, BsBookmarkStar} from 'react-icons/bs';
 import {
     fetchMovies,
     selectIsLoading,
@@ -11,11 +11,13 @@ import {
 //import {selectTitleFilter, selectAuthorFilter, selectOnlyFavoriteFilter} from '../../redux/slices/filterSlice';
 
 import MoviesGrid from "./MoviesGrid";
+import Pagination from "../Pagination/Pagination";
 
 import './Movies.scss';
+import Loader from "../System/Loader";
 
 
-const Movies = ({movies}) => {
+const Movies = ({movies, currentPage, isLoading}) => {
     //const titleFilter = useSelector(selectTitleFilter);
     //const authorFilter = useSelector(selectAuthorFilter);
     //const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter);
@@ -53,8 +55,25 @@ const Movies = ({movies}) => {
     //     });
     // };
 
+    // PAGINATION
+    const handleItemsPerPage = (key) => {
+        // setItemsPerPage(+key)
+        // setCurrentPage(CURRENT_PAGE)
+        // setFilteredMoviesAction({perPage: key})
+    }
+
+
+    const ITEMS_PER_PAGE = 50
+    const totalPages = Math.ceil(movies.length / ITEMS_PER_PAGE)
+    const indexLastPage = currentPage * ITEMS_PER_PAGE
+    const indexFirstPage = indexLastPage - ITEMS_PER_PAGE
+
+    const moviesPaginated = movies.slice(indexFirstPage, indexLastPage)
+
     return (
         <div className="Movies">
+            {isLoading && <Loader />}
+
             <div className="Container">
                 <div className="MoviesRow">
                     <div className="MoviesCol MoviesCol-start">
@@ -64,17 +83,16 @@ const Movies = ({movies}) => {
                         {/*    handleSorting={handleSorting}*/}
                         {/*/>*/}
 
-                        <MoviesGrid movies={movies} />
+                        <MoviesGrid movies={moviesPaginated} />
 
-                        {/*{totalPages > 1 &&*/}
-                        {/*    <Pagination*/}
-                        {/*        currentPage={currentPage}*/}
-                        {/*        totalPages={totalPages}*/}
-                        {/*        itemsPerPage={itemsPerPage}*/}
-                        {/*        handleItemsPerPage={handleItemsPerPage}*/}
-                        {/*        handlePagination={handlePagination}*/}
-                        {/*    />*/}
-                        {/*}*/}
+                        {totalPages > 1 &&
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                // itemsPerPage={itemsPerPage}
+                                // handleItemsPerPage={handleItemsPerPage}
+                            />
+                        }
                     </div>
 
                     <div className="MoviesCol MoviesCol-end">

@@ -5,7 +5,7 @@ const MoviesGrid = ({movies}) => {
         <div className="MoviesGrid">
             <div className="MoviesGridRow">
                 {movies.map(movie => (
-                    <div className="MoviesGridCol" key={movie.imdb_url}>
+                    <div className="MoviesGridCol" key={movie.id}>
                         <MovieItem movie={movie} />
                     </div>
                 ))}

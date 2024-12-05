@@ -74,7 +74,7 @@
         li{
             padding: 5px;
 
-            button{
+            a{
                 color: var(--cl-blue);
                 background: none;
                 border: 0;
@@ -82,8 +82,7 @@
                 margin: 0;
                 transition: var(--transition);
 
-                &.active,
-                &:hover{
+                &.active, &:hover{
                     color: var(--cl-yellow);
                 }
             }

@@ -7,7 +7,7 @@ const NotFound = () => {
             <div className="Container">
                 <div className="NotFoundWrap">
                     <div className="NotFoundImage">
-                        <img src="err-img.png" width="689" height="356" alt="error" />
+                        <img src="/err-img.png" width="689" height="356" alt="error" />
                     </div>
 
                     <div className="NotFoundTitle">
@@ -15,7 +15,7 @@ const NotFound = () => {
                     </div>
 
                     <div className="NotFoundLink">
-                        <Link to="/">go home</Link>
+                        <Link to=".">go home</Link>
                     </div>
                 </div>
             </div>

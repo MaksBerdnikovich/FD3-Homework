@@ -1,11 +1,19 @@
 .Logo{
     position: relative;
     display: flex;
-    flex: 0 0 60px;
     margin-right: 30px;
 
-    @media only screen and (max-width: 767px){
+    a{
+        display: flex;
         flex: 0 0 50px;
-        margin-right: 15px;
+        font-size: 50px;
+
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+
+    @media only screen and (max-width: 767px){
+
     }
 }

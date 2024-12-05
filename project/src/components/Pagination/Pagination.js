@@ -1,15 +1,14 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 import './Pagination.scss';
 
-const Pagination = ({currentPage, totalPages, itemsPerPage, handleItemsPerPage, handlePagination}) => {
+const Pagination = ({currentPage, totalPages}) => {
     const paginationList = [];
     for (let i = 0; i < totalPages; i++) {
         paginationList.push(
             <li key={i}>
-                <button onClick={() => handlePagination(i + 1)} className={+currentPage === i + 1 ? 'active' : ''}>
-                    {i + 1}
-                </button>
+                <Link to={`/${i + 1}/`} className={currentPage === i + 1 ? 'active' : ''}>{i + 1}</Link>
             </li>
         )
     }
@@ -19,27 +18,23 @@ const Pagination = ({currentPage, totalPages, itemsPerPage, handleItemsPerPage, 
             <div className="PaginationForm">
                 <label>Movies per page:</label>
 
-                <select value={itemsPerPage} onChange={e => handleItemsPerPage(e.target.value)}>
-                    <option value={50}>50 Movies</option>
-                    <option value={100}>100 Movies</option>
-                    <option value={150}>150 Movies</option>
-                    <option value={250}>All Movies</option>
-                </select>
+                {/*<select value={itemsPerPage} onChange={e => handleItemsPerPage(e.target.value)}>*/}
+                {/*    <option value={50}>50 Movies</option>*/}
+                {/*    <option value={100}>100 Movies</option>*/}
+                {/*    <option value={150}>150 Movies</option>*/}
+                {/*    <option value={250}>All Movies</option>*/}
+                {/*</select>*/}
             </div>
 
             <div className="PaginationList">
                 <span>Page {currentPage} of {totalPages}:</span>
 
                 <ul>
-                    <li>
-                        <button onClick={() => handlePagination(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
-                    </li>
+                    {!(currentPage === 1) && <li><Link to={`/${currentPage - 1}/`}>Prev</Link></li>}
 
                     {paginationList}
 
-                    <li>
-                        <button onClick={() => handlePagination(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
-                    </li>
+                    {!(currentPage === totalPages) && <li><Link to={`/${currentPage + 1}/`}>Next</Link></li>}
                 </ul>
             </div>
         </div>

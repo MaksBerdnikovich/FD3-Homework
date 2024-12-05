@@ -6,9 +6,9 @@ const Menu = () => {
     return (
         <div className="Menu">
             <ul>
-                <li><NavLink to="." end>Home</NavLink></li>
-                <li><NavLink to="watchlist">Watchlist</NavLink></li>
-                <li><NavLink to="favorite">Favorite</NavLink></li>
+                {/*<li><NavLink to="." end>Home</NavLink></li>*/}
+                <li><NavLink to="/favorite">Favorite <sup>5</sup></NavLink></li>
+                <li><NavLink to="/watchlist">Watchlist <sup>5</sup></NavLink></li>
             </ul>
         </div>
     );

@@ -47,8 +47,8 @@ const moviesSlice = createSlice({
                 return {
                     ...item,
                     id: index,
-                    isFavorite: [34, 56, 34, 12].includes(index),
-                    isWatchlist: [67, 45, 23, 89].includes(index),
+                    isFavorite: [0,1,2,3,4,34, 56, 34, 12].includes(index),
+                    isWatchlist: [0,1,2,3,4,67, 45, 23, 89].includes(index),
                 }
             })
         },

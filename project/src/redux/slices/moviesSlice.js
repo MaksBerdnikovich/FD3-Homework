@@ -8,9 +8,11 @@ const initialState = {
     isLoading: false
 }
 
+const API = 'https://raw.githubusercontent.com/theapache64/top250/master/top250_min.json'
+
 export const fetchMovies = createAsyncThunk('movies/fetchMovies',
-    async (url, thunkAPI) => {
-        const res = await axios.get('https://raw.githubusercontent.com/theapache64/top250/master/top250_min.json');
+    async (url = API, thunkAPI) => {
+        const res = await axios.get(url);
         return res.data;
     }
 )
@@ -40,7 +42,15 @@ const moviesSlice = createSlice({
         },
         [fetchMovies.fulfilled]: (state, action) => {
             state.isLoading = false
-            state.movies.push(action.payload)
+
+            state.movies = action.payload.map((item, index) => {
+                return {
+                    ...item,
+                    id: index,
+                    isFavorite: [34, 56, 34, 12].includes(index),
+                    isWatchlist: [67, 45, 23, 89].includes(index),
+                }
+            })
         },
         [fetchMovies.rejected]: (state) => {
             state.isLoading = false

@@ -1,5 +1,5 @@
 import Hero from "../../components/Hero/Hero";
-import Movies from "../../components/Movies/Movies";
+import Movies from "../../components/Movies/&&_Movies";
 
 import watchlist from "../../watchlist.json";
 

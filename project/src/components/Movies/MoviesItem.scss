@@ -51,8 +51,11 @@
     text-transform: uppercase;
     color: var(--cl-light);
 
-    span{
-        padding-left: 5px;
+    .highlight{
+        color: var(--cl-yellow);
+    }
+
+    sub{
         font-size: 12px;
         font-weight: 400;
         color: var(--cl-secondary);

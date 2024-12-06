@@ -1,27 +1,31 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    title: '',
-    author: '',
-    onlyFavorite: false,
+    name: '',
+    genre: '',
+    director: '',
+    order: '',
+    perPage: 60
 };
 
 const filterSlice = createSlice({
     name: 'filter',
     initialState,
     reducers: {
-        setTitleFilter: (state, action) => {
-            // You can mutate state thanks to Immer library
-            state.title = action.payload;
-
-            // // You can also return new state as usually
-            // return {...state, title: action.payload}
+        setNameFilter: (state, action) => {
+            state.name = action.payload;
         },
-        setAuthorFilter: (state, action) => {
-            state.author = action.payload;
+        setGenreFilter: (state, action) => {
+            state.genre = action.payload;
         },
-        setOnlyFavoriteFilter: (state) => {
-            state.onlyFavorite = !state.onlyFavorite;
+        setDirectorFilter: (state, action) => {
+            state.director = action.payload;
+        },
+        setOrderFilter: (state, action) => {
+            state.order = action.payload;
+        },
+        setPerPageFilter: (state, action) => {
+            state.perPage = action.payload;
         },
         resetFilters: () => {
             return initialState;
@@ -30,14 +34,18 @@ const filterSlice = createSlice({
 });
 
 export const {
-    setTitleFilter,
-    setAuthorFilter,
-    setOnlyFavoriteFilter,
+    setNameFilter,
+    setGenreFilter,
+    setDirectorFilter,
+    setOrderFilter,
+    setPerPageFilter,
     resetFilters,
 } = filterSlice.actions;
 
-export const selectTitleFilter = (state) => state.filter.title;
-export const selectAuthorFilter = (state) => state.filter.author;
-export const selectOnlyFavoriteFilter = (state) => state.filter.onlyFavorite;
+export const selectNameFilter = (state) => state.filter.name;
+export const selectGenreFilter = (state) => state.filter.genre;
+export const selectDirectorFilter = (state) => state.filter.director;
+export const selectOrderFilter = (state) => state.filter.order;
+export const selectPerPageFilter = (state) => state.filter.perPage;
 
 export default filterSlice.reducer;

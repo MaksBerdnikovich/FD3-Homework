@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {toggleFavorite, toggleWatchlist, updateMovies} from '../../redux/slices/moviesSlice';
 import {BsBookmarkStarFill, BsBookmarkStar} from 'react-icons/bs';
 import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
 
 import './MoviesItem.scss';
+import {selectNameFilter} from "../../redux/slices/filterSlice";
+import {highlightMatch} from "../../utils/utils";
 
 const MoviesItem = ({movie}) => {
+    const nameFilter = useSelector(selectNameFilter)
     const dispatch = useDispatch()
     const {pathname} = useLocation();
     const [imgSrc, setImgSrc] = useState(movie.thumb_url)
@@ -46,7 +49,7 @@ const MoviesItem = ({movie}) => {
                     </div>
 
                     <div className="MoviesItemTitle">
-                        <h6>{movie.name}</h6> <span>/ {movie.year}</span>
+                        <h6>{highlightMatch(movie.name, nameFilter)} <sub>/ {movie.year}</sub></h6>
                     </div>
                 </Link>
             </div>

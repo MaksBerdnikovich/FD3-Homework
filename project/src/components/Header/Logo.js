@@ -1,5 +1,4 @@
 import {NavLink} from "react-router-dom";
-import { MdLocalMovies } from "react-icons/md";
 
 import './Logo.scss';
 

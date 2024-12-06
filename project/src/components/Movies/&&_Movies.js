@@ -6,7 +6,7 @@ import Sorting from "../Sorting/Sorting";
 import Pagination from "../Pagination/Pagination";
 import Filter from "../Filters/Filter";
 
-import './Movies.scss';
+import './MoviesGrid.scss';
 import MoviesGrid from "./MoviesGrid";
 
 const CURRENT_PAGE = 1

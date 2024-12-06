@@ -1,4 +1,5 @@
 import MovieItem from "./MoviesItem";
+import './MoviesGrid.scss';
 
 const MoviesGrid = ({movies}) => {
     return (

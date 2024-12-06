@@ -2,9 +2,28 @@ import React from "react";
 
 import './Filter.scss';
 
-const Filter = ({genres, directors, years, ratings, genreKey, directorsKey, yearFromKey, yearToKey, ratingFromKey, ratingToKey,
-        handleGenre, handleDirectors, handleYearFrom, handleYearTo, handleRatingFrom, handleRatingTo, handleClearFilter
-    }) => {
+const Filter = () => {
+
+    const dispatch = useDispatch();
+    const titleFilter = useSelector(selectTitleFilter);
+    const authorFilter = useSelector(selectAuthorFilter);
+    const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter);
+
+    const handleTitleFilterChange = (e) => {
+        dispatch(setTitleFilter(e.target.value));
+    };
+
+    const handleAuthorFilterChange = (e) => {
+        dispatch(setAuthorFilter(e.target.value));
+    };
+
+    const handleOnlyFavoriteFilterChange = () => {
+        dispatch(setOnlyFavoriteFilter());
+    };
+
+    const handleResetFilters = () => {
+        dispatch(resetFilters());
+    };
 
     return (
         <div className="Filter">
@@ -15,6 +34,13 @@ const Filter = ({genres, directors, years, ratings, genreKey, directorsKey, year
             <div className="FilterForm">
                 <div className="Form">
                     <div className="FormRow">
+                        <div className="FormCol">
+                            <div className="FormLine">
+                                <label>Movie name</label>
+                                <input value={nameKey} type="number" onChange={e => handleYearFrom(e.target.value)} placeholder={`From ${years.min}`} />
+                            </div>
+                        </div>
+
                         <div className="FormCol">
                             <div className="FormLine">
                                 <label>Genres &amp; Subgenres</label>
@@ -35,37 +61,37 @@ const Filter = ({genres, directors, years, ratings, genreKey, directorsKey, year
                             </div>
                         </div>
 
-                        <div className="FormCol">
-                            <div className="FormLine">
-                                <label>Release Year</label>
+                        {/*<div className="FormCol">*/}
+                        {/*    <div className="FormLine">*/}
+                        {/*        <label>Release Year</label>*/}
 
-                                <div className="FormLineRow">
-                                    <div className="FormLineCol">
-                                        <input value={yearFromKey} type="number" onChange={e => handleYearFrom(e.target.value)} placeholder={`From ${years.min}`} />
-                                    </div>
+                        {/*        <div className="FormLineRow">*/}
+                        {/*            <div className="FormLineCol">*/}
+                        {/*                <input value={yearFromKey} type="number" onChange={e => handleYearFrom(e.target.value)} placeholder={`From ${years.min}`} />*/}
+                        {/*            </div>*/}
 
-                                    <div className="FormLineCol">
-                                        <input value={yearToKey} type="number" onChange={e => handleYearTo(e.target.value)} placeholder={`To ${years.max}`} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {/*            <div className="FormLineCol">*/}
+                        {/*                <input value={yearToKey} type="number" onChange={e => handleYearTo(e.target.value)} placeholder={`To ${years.max}`} />*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
 
-                        <div className="FormCol">
-                            <div className="FormLine">
-                                <label>Rating Range</label>
+                        {/*<div className="FormCol">*/}
+                        {/*    <div className="FormLine">*/}
+                        {/*        <label>Rating Range</label>*/}
 
-                                <div className="FormLineRow">
-                                    <div className="FormLineCol">
-                                        <input value={ratingFromKey} type="number" onChange={e => handleRatingFrom(e.target.value)} placeholder={`From ${ratings.min}`} />
-                                    </div>
+                        {/*        <div className="FormLineRow">*/}
+                        {/*            <div className="FormLineCol">*/}
+                        {/*                <input value={ratingFromKey} type="number" onChange={e => handleRatingFrom(e.target.value)} placeholder={`From ${ratings.min}`} />*/}
+                        {/*            </div>*/}
 
-                                    <div className="FormLineCol">
-                                        <input value={ratingToKey} type="number" onChange={e => handleRatingTo(e.target.value)} placeholder={`To ${ratings.max}`} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {/*            <div className="FormLineCol">*/}
+                        {/*                <input value={ratingToKey} type="number" onChange={e => handleRatingTo(e.target.value)} placeholder={`To ${ratings.max}`} />*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
 
                         <div className="FormCol">
                             <div className="FormLine">

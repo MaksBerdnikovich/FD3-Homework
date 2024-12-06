@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./layouts/Main/Main";
-import Home from "./layouts/Pages/Home";
+import Movies from "./layouts/Pages/Movies";
 import Watchlist from "./layouts/Pages/Watchlist";
 import Favorite from "./layouts/Pages/Favorite";
 import NotFound from "./layouts/Pages/NotFound";
@@ -12,8 +12,8 @@ function App() {
             <div className="App">
                 <Routes>
                     <Route path="/" element={<Main />}>
-                        <Route index element={<Home />} />
-                        <Route path=":pageNumber" element={<Home />} />
+                        <Route index element={<Movies />} />
+                        <Route path=":pageNumber" element={<Movies />} />
                         <Route path="title/:slug" element={<Movie />} />
                         <Route path="watchlist" element={<Watchlist />} />
                         <Route path="favorite" element={<Favorite />} />

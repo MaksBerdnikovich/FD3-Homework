@@ -1,0 +1,18 @@
+.Textarea {
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    border: 0;
+    border-radius: 3px;
+    background-color: #233a50;
+    color: #abb7c4;
+    font-weight: 500;
+    font-size: 14px;
+
+    &:focus{
+        border: 0;
+        outline: none;
+    }
+}
+

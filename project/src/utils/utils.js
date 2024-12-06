@@ -5,6 +5,7 @@ export const filterParams = (movies, type) => {
         arr.forEach(item => {
             if (!acc.includes(item)) acc.push(item)
         });
+
         return acc;
     }, []);
 }

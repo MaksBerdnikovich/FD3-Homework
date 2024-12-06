@@ -13,6 +13,10 @@ import queryString from "query-string";
 import {filterParams, filterQuery} from "../../utils/utils";
 
 import './Filter.scss';
+import Button from "../Form/Button";
+import Label from "../Form/Label";
+import Input from "../Form/Input";
+import Select from "../Form/Select";
 
 
 const Filter = () => {
@@ -44,6 +48,8 @@ const Filter = () => {
         dispatch(resetFilters())
     }
 
+    console.log(filterParams(movies, 'genre'))
+
     return (
         <div className="Filter">
             <div className="FilterTitle">
@@ -55,34 +61,28 @@ const Filter = () => {
                     <div className="FormRow">
                         <div className="FormCol">
                             <div className="FormLine">
-                                <label>Movie name</label>
-                                <input value={nameFilter} type="text" onChange={handleNameFilterChange} placeholder="Search for a movie" />
+                                <Label text={'Movie name'} />
+                                <Input value={nameFilter} onChange={handleNameFilterChange} placeholder={"Search for a movie"} />
                             </div>
                         </div>
 
                         <div className="FormCol">
                             <div className="FormLine">
-                                <label>Genres & Subgenres</label>
-                                <select value={genreFilter} onChange={handleGenreFilterChange}>
-                                    <option value=''>Choose an option</option>
-                                    {filterParams(movies, 'genre').map((genre, i) => <option key={i} value={genre}>{genre}</option>)}
-                                </select>
+                                <Label text={'Genres & Subgenres'} />
+                                <Select options={filterParams(movies, 'genre')} value={genreFilter} onChange={handleGenreFilterChange} />
                             </div>
                         </div>
 
                         <div className="FormCol">
                             <div className="FormLine">
-                                <label>Directors</label>
-                                <select value={directorFilter} onChange={handleDirectorFilterChange}>
-                                    <option value=''>Choose an option</option>
-                                    {filterParams(movies, 'directors').map((director, i) => <option key={i} value={director}>{director}</option>)}
-                                </select>
+                                <Label text={'Directors'} />
+                                <Select options={filterParams(movies, 'directors')} value={directorFilter} onChange={handleDirectorFilterChange} />
                             </div>
                         </div>
 
                         <div className="FormCol">
                             <div className="FormLine">
-                                <button type="button" onClick={handleClearFilter}>Clear Filter</button>
+                                <Button onClick={handleClearFilter} text={'Clear Filter'}/>
                             </div>
                         </div>
                     </div>

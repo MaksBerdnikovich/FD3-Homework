@@ -1,0 +1,21 @@
+.Button{
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #dd003f;
+    height: 40px;
+    width: 100%;
+    margin-top: 10px;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &:disabled{
+        opacity: 0.5;
+    }
+
+    &:not(:disabled):hover{
+        opacity: 0.85;
+    }
+}

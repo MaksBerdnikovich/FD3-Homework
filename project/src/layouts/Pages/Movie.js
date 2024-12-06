@@ -15,7 +15,7 @@ const Movie = () => {
 
     useEffect(() => {
         if (movies.length === 0) dispatch(fetchMovies())
-    }, [])
+    })
 
     return (
         <>{isLoading ? <Loader /> : (movie && <MovieDetails movie={movie}/>)}</>

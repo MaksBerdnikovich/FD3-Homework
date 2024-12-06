@@ -3,7 +3,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import {filterQuery} from "../../utils/utils";
 import {useDispatch, useSelector} from "react-redux";
-import {selectOrderFilter, setDirectorFilter, setGenreFilter, setOrderFilter} from "../../redux/slices/filterSlice";
+import {selectOrderFilter, setOrderFilter} from "../../redux/slices/filterSlice";
 
 import './Sorting.scss';
 

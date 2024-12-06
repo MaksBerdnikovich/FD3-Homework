@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {toggleFavorite, toggleWatchlist, updateMovies} from "../../redux/slices/moviesSlice";
@@ -26,10 +26,6 @@ const MovieDetails = ({movie}) => {
         dispatch(updateMovies(id))
         dispatch(toggleWatchlist(id))
     }
-
-    useEffect(() => {
-        if (!movie) navigate('/404page')
-    }, [])
 
     return (
         <div className="MovieDetails">

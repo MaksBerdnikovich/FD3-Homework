@@ -1,19 +1,27 @@
-import axios from 'axios';
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-//import createBookWithID from '../../utils/createBookWithID';
+import axios from 'axios'
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+
+const fetchApi = 'http://d3335303.beget.tech/api/data.json'
+const postApi = 'https://jsonplaceholder.typicode.com/posts'
 
 const initialState = {
     movies: [],
     isLoading: false,
+    successMessage: '',
     errorMessage: ''
 }
 
-const API = 'https://raw.githubusercontent.com/theapache64/top250/master/top250_min.json'
-
 export const fetchMovies = createAsyncThunk('movies/fetchMovies',
-    async (url = API, thunkAPI) => {
-        const res = await axios.get(url);
-        return res.data;
+    async (url = fetchApi, thunkAPI) => {
+        const response = await axios.get(url);
+        return response.data;
+    }
+)
+
+export const updateMovies = createAsyncThunk('movies/updateMovies',
+    async (postData ,  thunkAPI) => {
+        const response = await axios.post(postApi, postData)
+        return response.data;
     }
 )
 
@@ -42,18 +50,20 @@ const moviesSlice = createSlice({
         },
         [fetchMovies.fulfilled]: (state, action) => {
             state.isLoading = false
-
-            state.movies = action.payload.map((item, index) => {
-                return {
-                    ...item,
-                    id: index,
-                    isFavorite: [34, 56, 34, 12].includes(index),
-                    isWatchlist: [67, 45, 23, 89].includes(index),
-                }
-            })
+            state.movies = action.payload
         },
         [fetchMovies.rejected]: (state, action) => {
-            console.log(action)
+            state.errorMessage = action.error.message
+        },
+        [updateMovies.pending]: (state) => {
+            state.isLoading = true
+        },
+        [updateMovies.fulfilled]: (state) => {
+            state.isLoading = false
+            state.successMessage = 'Action completed successfully!'
+        },
+        [updateMovies.rejected]: (state, action) => {
+            state.isLoading = false
             state.errorMessage = action.error.message
         },
     },
@@ -64,5 +74,6 @@ export const {toggleFavorite, toggleWatchlist} = moviesSlice.actions
 export const selectMovies = (state) => state.movies.movies
 export const selectIsLoading = (state) => state.movies.isLoading
 export const selectErrorMessage = (state) => state.movies.errorMessage
+export const selectSuccessMessage = (state) => state.movies.successMessage
 
 export default moviesSlice.reducer

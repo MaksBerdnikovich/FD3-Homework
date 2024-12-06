@@ -1,11 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import './MovieDetails.scss';
+import {useNavigate} from "react-router-dom";
 
 const MovieDetails = ({movie}) => {
+    const navigate = useNavigate()
     const [imgSrc, setImgSrc] = useState(movie.image_url);
 
-    const handleError = () => setImgSrc('cm-img.png')
+    const handleError = () => setImgSrc('/cm-img.png')
+
+    useEffect(() => {
+        if (!movie) navigate('/404page')
+    }, [])
 
     return (
         <div className="MovieDetails">

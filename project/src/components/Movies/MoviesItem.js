@@ -20,7 +20,7 @@ const MoviesItem = ({movie}) => {
     return (
         <div className="MoviesItem">
             <div className="MoviesItemLink">
-                <Link to={movie.imdb_url}>
+                <Link to={`/movies/${movie.slug}`}>
                     <div className="MoviesItemImage">
                         <img src={imgErrorSrc} onError={handleImgError} height="260" alt={movie.name}/>
                     </div>

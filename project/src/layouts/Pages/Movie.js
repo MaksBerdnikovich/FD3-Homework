@@ -1,17 +1,24 @@
 import {useParams} from "react-router-dom";
 import MovieDetails from "../../components/Movies/MovieDetails";
 
-import movies from "../../data.json";
-import NotFound from "./NotFound";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchMovies, selectIsLoading, selectMovies} from "../../redux/slices/moviesSlice";
+import {useEffect} from "react";
+import Loader from "../../components/System/Loader";
 
 const Movie = () => {
-    const params = useParams()
-    const movie = movies.find(movie => movie.imdb_url === `/title/${params.slug}/`)
+    const movies = useSelector(selectMovies)
+    const isLoading = useSelector(selectIsLoading)
+    const dispatch = useDispatch()
+    const {slug} = useParams()
+    const movie = movies.find(movie => movie.slug === `${slug}`)
+
+    useEffect(() => {
+        dispatch(fetchMovies())
+    }, [])
 
     return (
-        <>
-            {movie ? <MovieDetails movie={movie}/> : <NotFound />}
-        </>
+        <>{isLoading ? <Loader /> : (movie && <MovieDetails movie={movie}/>)}</>
     );
 }
 

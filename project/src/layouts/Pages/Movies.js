@@ -25,7 +25,7 @@ const Movies = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (movies.length === 0) dispatch(fetchMovies())
+        dispatch(fetchMovies())
     }, [])
 
     useEffect(() => {

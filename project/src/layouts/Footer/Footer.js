@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {selectErrorMessage} from "../../redux/slices/moviesSlice";
+import {selectErrorMessage, selectSuccessMessage} from "../../redux/slices/moviesSlice";
 
 import Copyright from "../../components/Footer/Copyright";
 import ScrollToTop from "../../components/Footer/ScrollToTop";
@@ -10,6 +10,7 @@ import Notice from "../../components/System/Notice";
 
 const Footer = () => {
     const errorMessage = useSelector(selectErrorMessage)
+    const successMessage = useSelector(selectSuccessMessage)
 
     return (
         <footer className="Footer">
@@ -21,7 +22,11 @@ const Footer = () => {
                         <ScrollToTop />
 
                         {errorMessage &&
-                            <Notice message={errorMessage} type={errorMessage ? 'error' : 'success'} />
+                            <Notice message={errorMessage} type={'error'} />
+                        }
+
+                        {successMessage &&
+                            <Notice message={successMessage} type={'success'} />
                         }
                     </div>
                 </div>

@@ -5,7 +5,8 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 const initialState = {
     movies: [],
-    isLoading: false
+    isLoading: false,
+    errorMessage: ''
 }
 
 const API = 'https://raw.githubusercontent.com/theapache64/top250/master/top250_min.json'
@@ -52,8 +53,9 @@ const moviesSlice = createSlice({
                 }
             })
         },
-        [fetchMovies.rejected]: (state) => {
-            state.isLoading = false
+        [fetchMovies.rejected]: (state, action) => {
+            console.log(action)
+            state.errorMessage = action.error.message
         },
     },
 })
@@ -62,5 +64,6 @@ export const {toggleFavorite, toggleWatchlist} = moviesSlice.actions
 
 export const selectMovies = (state) => state.movies.movies
 export const selectIsLoading = (state) => state.movies.isLoading
+export const selectErrorMessage = (state) => state.movies.errorMessage
 
 export default moviesSlice.reducer

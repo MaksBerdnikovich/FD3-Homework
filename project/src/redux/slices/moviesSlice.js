@@ -31,14 +31,14 @@ const moviesSlice = createSlice({
     reducers: {
         toggleFavorite: (state, action) => {
             state.movies.forEach((movie) => {
-                if (movie.id === action.payload) {
+                if (movie.slug === action.payload) {
                     movie.isFavorite = !movie.isFavorite;
                 }
             });
         },
         toggleWatchlist: (state, action) => {
             state.movies.forEach((movie) => {
-                if (movie.id === action.payload) {
+                if (movie.slug === action.payload) {
                     movie.isWatchlist = !movie.isWatchlist;
                 }
             });
@@ -47,6 +47,7 @@ const moviesSlice = createSlice({
     extraReducers: {
         [fetchMovies.pending]: (state) => {
             state.isLoading = true
+            state.errorMessage = ''
         },
         [fetchMovies.fulfilled]: (state, action) => {
             state.isLoading = false
@@ -56,14 +57,13 @@ const moviesSlice = createSlice({
             state.errorMessage = action.error.message
         },
         [updateMovies.pending]: (state) => {
-            state.isLoading = true
+            state.successMessage = ''
+            state.errorMessage = ''
         },
-        [updateMovies.fulfilled]: (state) => {
-            state.isLoading = false
-            state.successMessage = 'Action completed successfully!'
+        [updateMovies.fulfilled]: (state, action) => {
+            state.successMessage = 'Action completed!'
         },
         [updateMovies.rejected]: (state, action) => {
-            state.isLoading = false
             state.errorMessage = action.error.message
         },
     },

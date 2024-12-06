@@ -16,7 +16,7 @@ function App() {
                         <Route path=":pageNumber" element={<Movies />} />
                         <Route path="movies/:slug" element={<Movie />} />
                         <Route path="watchlist" element={<Watchlist />} />
-                        <Route path="favorite" element={<Favorite />} />
+                        <Route path="/favorite" element={<Favorite />} />
                         <Route path="404Page" element={<NotFound />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>

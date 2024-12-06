@@ -14,7 +14,7 @@ const Movie = () => {
     const movie = movies.find(movie => movie.slug === `${slug}`)
 
     useEffect(() => {
-        dispatch(fetchMovies())
+        if (movies.length === 0) dispatch(fetchMovies())
     }, [])
 
     return (

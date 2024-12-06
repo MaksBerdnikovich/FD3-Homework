@@ -1,13 +1,31 @@
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {toggleFavorite, toggleWatchlist, updateMovies} from "../../redux/slices/moviesSlice";
+import { GrFormPreviousLink } from "react-icons/gr";
+import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
+import {BsBookmarkStar, BsBookmarkStarFill} from "react-icons/bs";
 
 import './MovieDetails.scss';
-import {useNavigate} from "react-router-dom";
 
 const MovieDetails = ({movie}) => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [imgSrc, setImgSrc] = useState(movie.image_url);
 
     const handleError = () => setImgSrc('/cm-img.png')
+
+    const handleGoBack = () => navigate(-1)
+
+    const handleToggleFavorite = (id) => {
+        dispatch(updateMovies(id))
+        dispatch(toggleFavorite(id))
+    }
+
+    const handleToggleWatchlist = (id) => {
+        dispatch(updateMovies(id))
+        dispatch(toggleWatchlist(id))
+    }
 
     useEffect(() => {
         if (!movie) navigate('/404page')
@@ -26,9 +44,16 @@ const MovieDetails = ({movie}) => {
                     </div>
 
                     <div className="MovieDetailsCol MovieDetailsCol-end">
-                        <div className="MovieDetailsTitle">
-                            <h1>{movie.name}</h1> <h4>/ {movie.year}</h4>
+                        <div className="MovieDetailsHead">
+                            <div className="MovieDetailsTitle">
+                                <h1>{movie.name}</h1> <h4>/ {movie.year}</h4>
+                            </div>
+
+                            <div className="MovieDetailsBack">
+                                <button type="button" onClick={handleGoBack}><GrFormPreviousLink /> <span>Go Back</span></button>
+                            </div>
                         </div>
+
 
                         <div className="MovieDetailsBlock">
                             <div className="MovieDetailsRating">
@@ -38,25 +63,15 @@ const MovieDetails = ({movie}) => {
                             <div className="MovieDetailsAction">
                                 <ul>
                                     <li>
-                                        <button type="button">
-                                            <div className="IconWatchlist">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#dcf836">
-                                                    <path d="M17 3c1.05 0 1.918.82 1.994 1.851L19 5v16l-7-3-7 3V5c0-1.05.82-1.918 1.851-1.994L7 3h10zm-4 4h-2v3H8v2h3v3h2v-3h3v-2h-3V7z" fill="#dcf836" />
-                                                </svg>
-                                            </div>
-
-                                            <h6>Add to Watchlist</h6>
+                                        <button onClick={() => handleToggleFavorite(movie.slug)} className="AddToFavorite" type="button">
+                                            {movie.isFavorite ? <MdFavorite/> : <MdFavoriteBorder/>}
+                                            <h6>{movie.isFavorite ? 'Remove from Favorite' : 'Add to Favorite'}</h6>
                                         </button>
                                     </li>
                                     <li>
-                                        <button type="button">
-                                            <div className="IconFavorite">
-                                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="#dd003f">
-                                                    <path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z" fill="#dd003f"/>
-                                                </svg>
-                                            </div>
-
-                                            <h6>Add to Favorite</h6>
+                                        <button onClick={() => handleToggleWatchlist(movie.slug)} className="AddToWatchlist" type="button">
+                                            {movie.isWatchlist ? <BsBookmarkStarFill/> : <BsBookmarkStar/>}
+                                            <h6>{movie.isWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}</h6>
                                         </button>
                                     </li>
                                 </ul>
@@ -86,8 +101,6 @@ const MovieDetails = ({movie}) => {
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 }

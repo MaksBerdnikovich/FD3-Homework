@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useLocation} from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import {toggleFavorite, toggleWatchlist} from '../../redux/slices/moviesSlice';
+import {toggleFavorite, toggleWatchlist, updateMovies} from '../../redux/slices/moviesSlice';
 import {BsBookmarkStarFill, BsBookmarkStar} from 'react-icons/bs';
 import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
 
@@ -9,20 +9,40 @@ import './MoviesItem.scss';
 
 const MoviesItem = ({movie}) => {
     const dispatch = useDispatch()
-    const [imgErrorSrc, setImgErrorSrc] = useState(movie.thumb_url)
+    const {pathname} = useLocation();
+    const [imgSrc, setImgSrc] = useState(movie.thumb_url)
 
-    const handleImgError = () => setImgErrorSrc('/cm-img.png')
+    const [isToggleFavorite, setIsToggleFavorite] = useState(false)
+    const [isToggleWatchlist, setIsToggleWatchlist] = useState(false)
 
-    const handleToggleFavorite = (id) => dispatch(toggleFavorite(id))
+    const getPathname = (path) => path.replace(/\//g, '')
 
-    const handleToggleWatchlist = (id) => dispatch(toggleWatchlist(id))
+    const handleImgError = () => setImgSrc('/cm-img.png')
+
+    const handleToggleFavorite = (id) => {
+        setIsToggleFavorite(true)
+
+        setTimeout(() => {
+            dispatch(updateMovies(id))
+            dispatch(toggleFavorite(id))
+        }, 400)
+    }
+
+    const handleToggleWatchlist = (id) => {
+        setIsToggleWatchlist(true)
+
+        setTimeout(() => {
+            dispatch(updateMovies(id))
+            dispatch(toggleWatchlist(id))
+        }, 400)
+    }
 
     return (
-        <div className="MoviesItem">
+        <div className={`MoviesItem ${(isToggleFavorite && getPathname(pathname) === 'favorite') || (isToggleWatchlist && getPathname(pathname) === 'watchlist') ? 'MoviesItem-toggle' : ''}`}>
             <div className="MoviesItemLink">
                 <Link to={`/movies/${movie.slug}`}>
                     <div className="MoviesItemImage">
-                        <img src={imgErrorSrc} onError={handleImgError} height="260" alt={movie.name}/>
+                        <img src={imgSrc} onError={handleImgError} height="260" alt={movie.name}/>
                     </div>
 
                     <div className="MoviesItemTitle">
@@ -37,12 +57,12 @@ const MoviesItem = ({movie}) => {
                 <div className="MoviesItemAction">
                     <ul>
                         <li>
-                            <button onClick={() => handleToggleFavorite(movie.id)} className="AddToFavorite" type="button" title="Add to Favorite">
+                            <button onClick={() => handleToggleFavorite(movie.slug)} className="AddToFavorite" type="button" title={movie.isFavorite ? "Remove from Favorite" : "Add to Favorite"}>
                                 {movie.isFavorite ? <MdFavorite/> : <MdFavoriteBorder/>}
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => handleToggleWatchlist(movie.id)} className="AddToWatchlist" type="button" title="Add to Watchlist">
+                            <button onClick={() => handleToggleWatchlist(movie.slug)} className="AddToWatchlist" type="button" title={movie.isWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}>
                                 {movie.isWatchlist ? <BsBookmarkStarFill/> : <BsBookmarkStar/>}
                             </button>
 

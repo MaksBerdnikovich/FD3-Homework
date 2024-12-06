@@ -2,30 +2,30 @@
     position: fixed;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     left: 0;
     bottom: 0;
+    padding-bottom: 30px;
     width: 100%;
-    height: 90px;
-    background: linear-gradient(180deg, rgba(2, 13, 24, .2) 0%, rgba(2, 13, 24, .65) 100%);
-    transition: .3s cubic-bezier(.215,.61,.355,1) opacity, visibility, transform;
+    height: 150px;
+    background: linear-gradient(180deg, rgba(2, 13, 24, .0) 0%, rgba(2, 13, 24, .65) 100%);
     z-index: 10000;
     pointer-events: none;
-    animation: fadeIn 0.3s ease;
+    animation: fadeInBottom 3s ease;
 }
 
 .NoticeMessage{
     position: relative;
-    max-width: 350px;
+    width: 100%;
+    max-width: 300px;
     margin: 0 auto;
     border-radius: 5px;
-    padding: 20px 30px;
+    padding: 15px;
     text-align: center;
     color: var(--cl-light);
     font-weight: 700;
     font-size: 16px;
     background-color: transparent;
-    animation: fadeInBottom 0.6s ease;
 
     &-error{
         background-color: var(--cl-red);
@@ -52,8 +52,18 @@
         transform: translate3d(0, 50%, 0)
     }
 
-    100% {
+    20% {
         opacity: 1;
         transform: translateZ(0)
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateZ(0)
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(0, 50%, 0)
     }
 }

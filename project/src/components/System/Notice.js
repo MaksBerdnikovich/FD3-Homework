@@ -10,7 +10,7 @@ const Notice = ({message, type}) => {
     // };
 
     useEffect(() => {
-        setTimeout(() => setIsVisible(false), 10000)
+        setTimeout(() => setIsVisible(false), 3000)
     }, []);
 
     return (

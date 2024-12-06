@@ -14,7 +14,7 @@ const Favorite = () => {
 
     useEffect(() => {
         if (movies.length === 0) dispatch(fetchMovies())
-    })
+    }, [movies.length, dispatch])
 
     const favoriteMovies = movies.filter(movie => movie.isFavorite)
 

@@ -14,7 +14,7 @@ const Watchlist = () => {
 
     useEffect(() => {
         if (movies.length === 0) dispatch(fetchMovies())
-    }, [])
+    }, [movies.length, dispatch])
 
     const watchlistMovies = movies.filter(movie => movie.isWatchlist)
 

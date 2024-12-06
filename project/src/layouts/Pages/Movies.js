@@ -40,17 +40,17 @@ const Movies = () => {
     const {pageNumber = 1} = useParams()
 
     useEffect(() => {
-        if (movies.length === 0) {
-            dispatch(fetchMovies())
-        }
+        if (movies.length === 0) dispatch(fetchMovies())
+    }, [movies.length, dispatch])
 
+    useEffect(() => {
         if (Object.keys(query).length > 0) {
             if (query.genre) dispatch(setGenreFilter(query.genre))
             if (query.director) dispatch(setDirectorFilter(query.director))
             if (query.order) dispatch(setOrderFilter(query.order))
             if (query.perPage) dispatch(setPerPageFilter(query.perPage))
         }
-    }, [])
+    }, [query, dispatch])
 
     useEffect(() => {
         if (isNaN(+pageNumber) || pageNumber > 5) {
@@ -61,7 +61,7 @@ const Movies = () => {
             navigate(`/${filterQuery(query, {})}`)
         }
 
-    }, [pageNumber, query])
+    }, [navigate, pageNumber, query])
 
     const filteredMovies = movies.filter((movie) => {
         const matchesName = nameFilter ? movie.name.toLowerCase().includes(nameFilter.toLowerCase()) : true
@@ -75,11 +75,14 @@ const Movies = () => {
     const indexLastPage = pageNumber * perPageFilter
     const indexFirstPage = indexLastPage - perPageFilter
 
-    const paginatedMovies = filteredMovies.slice(indexFirstPage, indexLastPage).sort((a, b) => {
-        if (!orderFilter) return
-        if (orderFilter === 'name') return a[orderFilter] > b[orderFilter] ? 1 : -1
-        return a[orderFilter] < b[orderFilter] ? 1 : -1
-    })
+    const paginatedMovies = filteredMovies.slice(indexFirstPage, indexLastPage)
+
+    if (orderFilter) {
+        paginatedMovies.sort((a, b) => {
+            if (orderFilter === 'name') return a[orderFilter] > b[orderFilter] ? 1 : -1
+            return a[orderFilter] < b[orderFilter] ? 1 : -1
+        })
+    }
 
     return (
         <>

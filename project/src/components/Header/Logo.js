@@ -13,7 +13,7 @@ const Logo = () => {
 
     return (
         <div className="Logo">
-            <NavLink to="." onClick={handleClearFilter} end>
+            <NavLink to="/" onClick={handleClearFilter} end>
                 <img onClick={handleClearFilter} src="/logo192.png" width="50" height="50" alt="logo" />
             </NavLink>
         </div>

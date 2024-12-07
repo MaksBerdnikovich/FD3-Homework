@@ -20,7 +20,7 @@ const MoviesItem = ({movie}) => {
 
     const getPathname = (path) => path.replace(/\//g, '')
 
-    const handleImgError = () => setImgSrc('/cm-img.png')
+    const handleImgError = () => setImgSrc('./cm-img.png')
 
     const handleToggleFavorite = (id) => {
         setIsToggleFavorite(true)

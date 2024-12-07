@@ -12,9 +12,9 @@ const Menu = () => {
     return (
         <div className="Menu">
             <ul>
-                {/*<li><NavLink to="." end>Home</NavLink></li>*/}
-                <li><NavLink to="favorite">Favorite <sup>{favoriteMovies.length}</sup></NavLink></li>
-                <li><NavLink to="watchlist">Watchlist <sup>{watchlistMovies.length}</sup></NavLink></li>
+                {/*<li><NavLink to="/" end>Home</NavLink></li>*/}
+                <li><NavLink to="/favorite">Favorite <sup>{favoriteMovies.length}</sup></NavLink></li>
+                <li><NavLink to="/watchlist">Watchlist <sup>{watchlistMovies.length}</sup></NavLink></li>
             </ul>
         </div>
     );

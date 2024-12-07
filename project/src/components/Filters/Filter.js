@@ -48,8 +48,6 @@ const Filter = () => {
         dispatch(resetFilters())
     }
 
-    console.log(filterParams(movies, 'genre'))
-
     return (
         <div className="Filter">
             <div className="FilterTitle">
